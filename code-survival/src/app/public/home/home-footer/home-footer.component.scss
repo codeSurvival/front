@@ -1,0 +1,21 @@
+
+
+#leftFooter {
+  float: left;
+  margin-left: 50px
+}
+
+#rightFooter {
+  float:right;
+  margin-right: 50px;
+}
+
+#footer {
+  overflow: hidden;
+  position: fixed;
+  background-color: teal;
+  color: azure;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
