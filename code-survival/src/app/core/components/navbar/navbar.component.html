@@ -1,0 +1,13 @@
+<mat-toolbar *ngIf="!isConnected">
+  <span>
+    <a mat-button routerLink="/home" routerLinkActive="active" class="nav-link" data-toggle="tab" id="homeLink">Accueil</a>
+  </span>
+  <span>
+    <a mat-button routerLink="/login" routerLinkActive="active" class="nav-link" data-toggle="tab" id="loginLink">Connexion</a>
+  </span>
+  <span class="spacer"></span>
+  <span>
+    <a mat-button href="https://github.com/codeSurvival/front" id="githubLink">Github</a>
+  </span>
+</mat-toolbar>
+

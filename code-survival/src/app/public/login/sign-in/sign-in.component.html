@@ -1,0 +1,23 @@
+<form (ngSubmit)="attemptLogin()" [formGroup]="userLoginForm">
+  <div id="user-data">
+    <div class="form-group">
+      <mat-form-field appearance="outline" class="w-75">
+        <mat-label for="username">Nom d'utilisateur</mat-label>
+        <input formControlName="username" id="username" matInput type="text">
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field appearance="outline" class="w-75">
+        <mat-label for="password">Mot de passe</mat-label>
+        <input formControlName="password" id="password" matInput type="password">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-start sign-in-actions">
+    <button [disabled]="!isFormValid()" class="border-primary" color="primary" mat-stroked-button type="submit" id="sign-in-button">Se
+      connecter
+    </button>
+  </div>
+</form>
+
+
