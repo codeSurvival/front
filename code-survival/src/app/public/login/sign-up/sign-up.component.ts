@@ -28,7 +28,7 @@ export class SignUpComponent implements OnInit {
     this.initForm();
   }
 
-  localeUser: UserEdit = {password: '', mail: '', username: ''};
+  localeUser: UserEdit = {password: '', email: '', username: ''};
 
   @Output()
   userChanged = new EventEmitter<UserEdit>();
@@ -56,7 +56,7 @@ export class SignUpComponent implements OnInit {
   initForm(): void {
     this.usernameCtrl = this.fb.control(this.localeUser?.username,
       [Validators.required, Validators.minLength(6), Validators.maxLength(20)]);
-    this.emailCtrl = this.fb.control(this.localeUser?.mail,
+    this.emailCtrl = this.fb.control(this.localeUser?.email,
       [Validators.required, Validators.email]);
     this.pwdCtrl = this.fb.control('',
       [Validators.required, Validators.minLength(8)]);
@@ -86,7 +86,7 @@ export class SignUpComponent implements OnInit {
   reset(): void{
     this.userForm.reset({
       username: this.localeUser.username,
-      email: this.localeUser.mail
+      email: this.localeUser.email
     });
     this.passwordForm.reset({
       password: '',
@@ -95,7 +95,7 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmitUser(): void {
-    this.localeUser.mail = this.emailCtrl.value;
+    this.localeUser.email = this.emailCtrl.value;
     this.localeUser.username = this.usernameCtrl.value;
     this.localeUser.password = this.pwdCtrl.value;
     this.userChanged.emit(this.localeUser);

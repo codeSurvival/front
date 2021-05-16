@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
 import Swal from 'sweetalert2';
-import {AuthenticationService} from "../../../core/services/authentication.service";
-import {UserEdit} from "../../../shared/models/users/user-edit";
+import {AuthenticationService} from '../../../core/services/authentication.service';
+import {UserEdit} from '../../../shared/models/users/user-edit';
 
 @Component({
   selector: 'app-login-root',
@@ -30,7 +30,6 @@ export class LoginRootComponent implements OnInit {
         }
       });
   }
-
 
   private registerSuccess(): void {
     Swal.fire({

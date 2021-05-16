@@ -52,12 +52,12 @@ export class AuthenticationService {
   }
 
   signUp(user: UserRegisterDto): Observable<any> {
-    return this.http.post(`${this.servicesUrl}/auth/subscribe`, user);
+    return this.http.post(`${this.servicesUrl}/users/registration`, user);
   }
 
   login(user: UserLoginDto): Observable<any> {
 
-    return this.apiCommonService.createAndLocate<UserLoginDto>(`${this.servicesUrl}/auth/authentication`, user).pipe(
+    return this.apiCommonService.createAndLocate<UserLoginDto>(`${this.servicesUrl}/users/authentication`, user).pipe(
       map(location => this.getSession(location ? location : '')),
       concatAll()
     );

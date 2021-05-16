@@ -42,7 +42,7 @@ export class SignInComponent implements OnInit {
     };
     this.authenticationService.login(userLoginDTO).subscribe(
       value => {
-        this.router.navigateByUrl('/dashboard').then(r => console.log(r));
+        this.router.navigateByUrl('/game').then(r => console.log(r));
       }, (err: HttpErrorResponse) => {
         if (err.status === 404) {
           this.noMatchError();

@@ -1,11 +1,11 @@
 export class UserRegisterDto {
   username: string;
   password: string;
-  mail: string;
+  email: string;
 
   constructor(obj: {username: string, password: string, mail: string}) {
     this.username = obj?.username;
     this.password = obj?.password;
-    this.mail = obj?.mail;
+    this.email = obj?.mail;
   }
 }
