@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import IStandaloneEditorConstructionOptions = monaco.editor.IStandaloneEditorConstructionOptions;
 
 @Component({
@@ -7,6 +7,10 @@ import IStandaloneEditorConstructionOptions = monaco.editor.IStandaloneEditorCon
   styleUrls: ['./game-editor.component.scss']
 })
 export class GameEditorComponent implements OnInit {
+
+  @Input()  code!: string;
+  @Output() codeChange = new EventEmitter<string>();
+
 
   editorOptions: IStandaloneEditorConstructionOptions = {
     theme: 'vs',
@@ -20,11 +24,16 @@ export class GameEditorComponent implements OnInit {
       width: 100
     }
   };
-  code = ' public static void main() {\n\tConsole.Writeln("Hello world!");\n}';
+
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  private setCode(code: string): void {
+    this.code = code;
+    this.codeChange.emit(this.code);
   }
 
 }

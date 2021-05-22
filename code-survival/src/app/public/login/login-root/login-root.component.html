@@ -2,7 +2,7 @@
   <h1>Connexion</h1>
   <div class="row">
     <div class="col-8">
-      <app-sign-in></app-sign-in>
+      <app-sign-in (loginAttempt)="onLoginAttempt($event)" ></app-sign-in>
     </div>
   </div>
   <h1 class="mt-3">Inscription</h1>

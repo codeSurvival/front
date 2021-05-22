@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import Swal from 'sweetalert2';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../../core/services/authentication.service';
@@ -12,6 +12,9 @@ import {HttpErrorResponse} from '@angular/common/http';
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
+
+  @Output()
+  loginAttempt = new EventEmitter<UserLoginDto>();
 
   userLoginForm: FormGroup;
 

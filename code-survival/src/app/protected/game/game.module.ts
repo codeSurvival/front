@@ -9,6 +9,7 @@ import {GameRoutingModule} from './game-routing.module';
 import {MatTableModule} from '@angular/material/table';
 import {MonacoEditorModule} from '@materia-ui/ngx-monaco-editor';
 import {FormsModule} from '@angular/forms';
+import { GameActionsComponent } from './game-actions/game-actions.component';
 
 
 
@@ -18,7 +19,8 @@ import {FormsModule} from '@angular/forms';
     GameEditorComponent,
     GameRulesComponent,
     GameDocComponent,
-    GameStateComponent
+    GameStateComponent,
+    GameActionsComponent
   ],
   imports: [
     CommonModule,
