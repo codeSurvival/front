@@ -1,13 +1,15 @@
 <p>game-root works!</p>
 
-<div class="container">
+<div class="container" *ngIf="user$ | async">
   <div class="row">
     <div class="column">
       <app-game-editor [(code)]="code"></app-game-editor>
-      <app-game-actions></app-game-actions>
+
+      <app-game-actions (executeCodeClicked)="executeCode($event)"></app-game-actions>
     </div>
     <div class="column">
       <app-game-state></app-game-state>
     </div>
   </div>
+
 </div>

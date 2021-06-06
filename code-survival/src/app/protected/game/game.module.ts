@@ -10,6 +10,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MonacoEditorModule} from '@materia-ui/ngx-monaco-editor';
 import {FormsModule} from '@angular/forms';
 import { GameActionsComponent } from './game-actions/game-actions.component';
+import {SharedModule} from '../../shared/shared.module';
+import { GameRulesFailureComponent } from './game-rules-failure/game-rules-failure.component';
 
 
 
@@ -20,14 +22,16 @@ import { GameActionsComponent } from './game-actions/game-actions.component';
     GameRulesComponent,
     GameDocComponent,
     GameStateComponent,
-    GameActionsComponent
+    GameActionsComponent,
+    GameRulesFailureComponent
   ],
-  imports: [
-    CommonModule,
-    GameRoutingModule,
-    MatTableModule,
-    MonacoEditorModule,
-    FormsModule
-  ]
+    imports: [
+        CommonModule,
+        GameRoutingModule,
+        MatTableModule,
+        MonacoEditorModule,
+        FormsModule,
+        SharedModule
+    ]
 })
 export class GameModule { }

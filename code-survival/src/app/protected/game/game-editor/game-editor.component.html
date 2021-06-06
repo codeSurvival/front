@@ -1,4 +1,4 @@
 <p>game-editor works!</p>
 <div class="row" style="height: 500px">
-  <ngx-monaco-editor class="h-500 w-100" [options]="editorOptions" [(ngModel)]="code"></ngx-monaco-editor>
+  <ngx-monaco-editor class="h-500 w-100" [options]="editorOptions" [(ngModel)]="code" (ngModelChange)="codeChange.emit(code)"></ngx-monaco-editor>
 </div>

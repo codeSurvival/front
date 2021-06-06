@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-game-actions',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameActionsComponent implements OnInit {
 
+  @Output()
+  executeCodeClicked = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onExecuteCodeClick(): void {
+    this.executeCodeClicked.emit();
+  }
 }
