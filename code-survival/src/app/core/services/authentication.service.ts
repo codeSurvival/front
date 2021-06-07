@@ -75,4 +75,12 @@ export class AuthenticationService {
       })
     );
   }
+
+  isAdmin(): Observable<boolean>{
+    return this.http.get<ConnectedUserResponse>(`${this.servicesUrl}/users/me`, {observe: 'response'})
+      .pipe(
+        map(res => res.body?.role === 'ADMIN'),
+        catchError(err => of(false))
+      );
+  }
 }

@@ -5,9 +5,10 @@ import { ProtectedRoutingModule } from './protected-routing.module';
 import { ProtectedRootComponent } from './protected-root/protected-root.component';
 
 
+
 @NgModule({
   declarations: [
-    ProtectedRootComponent
+    ProtectedRootComponent,
   ],
   imports: [
     CommonModule,
