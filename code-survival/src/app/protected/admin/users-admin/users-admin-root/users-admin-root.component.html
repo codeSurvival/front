@@ -1,0 +1,29 @@
+<div class="wrapper">
+  <div class="title">
+    <h2> Liste d'utilisateur </h2>
+  </div>
+  <div class="files">
+    <div *ngFor="let user of users ">
+      <mat-card>
+        <mat-card-title>
+          <mat-card-title>{{ user.username }}</mat-card-title>
+          <mat-card-subtitle>email : {{ user.email }}</mat-card-subtitle>
+          <mat-card-content>id : {{user.id}}</mat-card-content>
+        </mat-card-title>
+        <mat-card-actions>
+          <button
+            mat-raised-button
+            (click)="actionOnUser()"
+            style="margin-bottom: 8px"
+          >
+            Action sur l'user
+          </button>
+          <br />
+          <button mat-stroked-button (click)="removeUser(user.id)">
+            Supprimer
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

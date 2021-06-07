@@ -1,0 +1,14 @@
+mat-card {
+  height: calc(100% - 32px);
+  align-items: center;
+  background-color: var(--color-peace);
+  color: var(--color-prestige-blue);
+}
+
+mat-card-content {
+  font-size: 16px;
+}
+
+mat-card-content > b {
+  font-size: 18px;
+}
