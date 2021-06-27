@@ -1,4 +1,4 @@
-<mat-toolbar *ngIf="!isConnected">
+<mat-toolbar *ngIf="!user">
   <span>
     <a mat-button routerLink="/home" routerLinkActive="active" class="nav-link" data-toggle="tab" id="homeLink">Accueil</a>
   </span>
@@ -9,5 +9,28 @@
   <span>
     <a mat-button href="https://github.com/codeSurvival/front" id="githubLink">Github</a>
   </span>
+</mat-toolbar>
+<mat-toolbar *ngIf="user">
+  <span>{{user.username}}</span>
+  <span>
+    <a mat-button routerLink="/game" routerLinkActive="active" class="nav-link" data-toggle="tab" id="gameLink">Jeu</a>
+  </span>
+  <span>
+    <a mat-button routerLink="/profile" routerLinkActive="active" class="nav-link" data-toggle="tab" id="profileLink">Profil</a>
+  </span>
+  <span *ngIf="user.isAdmin()">
+    <a mat-button routerLink="/admin/users" routerLinkActive="active" class="nav-link" data-toggle="tab" id="usersLink"><i>Utilisateurs</i></a>
+  </span>
+  <span *ngIf="user.isAdmin()">
+    <a mat-button routerLink="/admin/levels" routerLinkActive="active" class="nav-link" data-toggle="tab" id="levelsLink"><i>Niveaux</i></a>
+  </span>
+  <span class="spacer"></span>
+  <span>
+    <a (click)="onLogout()" mat-button>
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Log out</span>
+    </a>
+  </span>
+
 </mat-toolbar>
 

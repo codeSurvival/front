@@ -1,4 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {ConnectedUser} from '../../../shared/models/users/connected-user';
+import {AuthenticationService} from '../../services/authentication.service';
+import {UserStateService} from '../../services/user-state.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,11 +12,18 @@ import {Component, Input, OnInit} from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   @Input()
-  isConnected = false;
+  user: ConnectedUser | null = null;
 
-  constructor() { }
+  constructor(private readonly authService: AuthenticationService,
+              private readonly userStateService: UserStateService,
+              private readonly router: Router) { }
 
   ngOnInit(): void {
   }
 
+  onLogout(): void {
+    this.userStateService.updateUser(null);
+    this.authService.clearLocalUserData();
+    this.router.navigate(['/home']);
+  }
 }

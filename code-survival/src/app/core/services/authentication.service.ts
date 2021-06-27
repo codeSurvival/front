@@ -83,4 +83,8 @@ export class AuthenticationService {
         catchError(err => of(false))
       );
   }
+
+  public clearLocalUserData(): void {
+    this.clearLocalUserToken();
+  }
 }

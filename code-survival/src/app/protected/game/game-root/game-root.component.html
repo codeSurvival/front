@@ -1,6 +1,6 @@
 <p>game-root works!</p>
 
-<div class="container" *ngIf="user$ | async">
+<div class="container" *ngIf="(user$ | async)">
   <div class="row">
     <div class="column">
       <app-game-editor [(code)]="code"></app-game-editor>

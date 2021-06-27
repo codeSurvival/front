@@ -1,11 +1,17 @@
 <h1 mat-dialog-title>Règle(s) non respecté(e)s !</h1>
 <div mat-dialog-content>
-  Les contraintes suivantes n'ont pas été respectées dans votre code :
-  <ul>
-    <li *ngFor="let constraint of data.codeResponse.failedConstraints">
-      <span><b>{{constraint.name}} : </b> {{constraint.warning}}</span>
-    </li>
-  </ul>
+  <div *ngIf="!data.codeResponse.rulesSuccess">
+    Les contraintes suivantes n'ont pas été respectées dans votre code :
+    <ul>
+      <li *ngFor="let constraint of data.codeResponse.failedConstraints">
+        <span><b>{{constraint.name}} : </b> {{constraint.warning}}</span>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="!data.codeResponse.similaritySuccess">
+    <span>Votre code est trop similaire au précédent ! </span>
+    <span>Essayez de changer d'algorithme </span>
+  </div>
 </div>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Retour</button>

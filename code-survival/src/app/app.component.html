@@ -1,3 +1,4 @@
+<app-navbar [user]="connectedUser$ | async"></app-navbar>
 <router-outlet>
   <span class="loader" *ngIf="loading"></span>
 </router-outlet>

@@ -21,10 +21,11 @@ import {GameRulesFailureComponent} from '../game-rules-failure/game-rules-failur
 export class GameRootComponent implements OnInit {
   code: string;
   languages: LanguageResponse[] = [];
-  user!: ConnectedUser;
-  user$ = new Subject<ConnectedUser>();
+  user!: ConnectedUser | null;
+  user$ = new BehaviorSubject<ConnectedUser | null>(null);
+
   private userSub!: Subscription;
-  codeResponse = {success : false, failedConstraints : [] } as CodeExecutionResponse;
+  codeResponse = {rulesSuccess : false, failedConstraints : [], similaritySuccess : false } as CodeExecutionResponse;
 
   constructor(
     private router: Router,
@@ -58,7 +59,7 @@ export class GameRootComponent implements OnInit {
 
     this.codeService.executeCode(executionCommandDTO).subscribe( res => {
       this.codeResponse = res;
-      if (!this.codeResponse.success) {
+      if (!this.codeResponse.rulesSuccess || !this.codeResponse.similaritySuccess) {
         const dialogRef = this.dialog.open(GameRulesFailureComponent, {
           data: {
             codeResponse: this.codeResponse
@@ -66,8 +67,9 @@ export class GameRootComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(result => {
           console.log('close dialog');
-          this.codeResponse.success = true;
+          this.codeResponse.rulesSuccess = true;
           this.codeResponse.failedConstraints = [];
+          this.codeResponse.similaritySuccess = true;
         });
       }
     });

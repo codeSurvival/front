@@ -8,8 +8,8 @@ import {ConnectedUser} from '../../shared/models/users/connected-user';
 })
 export class UserStateService{
 
-  private user!: ConnectedUser;
-  userSubject$ = new Subject<ConnectedUser>( );
+  private user: ConnectedUser | null = null;
+  userSubject$ = new Subject<ConnectedUser | null>();
 
   constructor(private authService: AuthenticationService) {
   }
@@ -17,17 +17,21 @@ export class UserStateService{
   loadUser(): void{
     if (this.user == null){
       this.authService.getLoggedUser().subscribe(user => {
-        this.user = new ConnectedUser( user.id, user.username, user.email);
-        this.userSubject$.next(new ConnectedUser(this.user.id, this.user.username, this.user.email));
+        this.user = new ConnectedUser( user.id, user.username, user.email, user.role);
+        this.userSubject$.next(new ConnectedUser(this.user.id, this.user.username, this.user.email, this.user.role));
       });
     } else {
-      this.userSubject$.next(new ConnectedUser(this.user.id, this.user.username, this.user.email));
+      this.userSubject$.next(new ConnectedUser(this.user.id, this.user.username, this.user.email, this.user.role));
     }
   }
 
-  updateUser(user: ConnectedUser): void{
+  updateUser(user: ConnectedUser | null): void{
     this.user = user;
-    this.userSubject$.next(new ConnectedUser(this.user.id, this.user.username, this.user.email));
+    if (this.user) {
+      this.userSubject$.next(new ConnectedUser(this.user.id, this.user.username, this.user.email, this.user.role));
+    } else {
+      this.userSubject$.next(null);
+    }
   }
 
 
