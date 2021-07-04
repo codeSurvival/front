@@ -1,0 +1,9 @@
+<div *ngIf="regexList.length > 0; else empty_list">
+  <div *ngFor="let regex of regexList" class="regex-item">
+    <app-regex-item [languagesList]="languagesList" [regex]="regex"></app-regex-item>
+  </div>
+</div>
+<ng-template #empty_list> <div>
+  Aucune Regex
+</div></ng-template>
+<app-new-regex-item [languagesList]="languagesList"></app-new-regex-item>

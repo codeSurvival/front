@@ -1,0 +1,21 @@
+<mat-card class="level-item-card">
+  <mat-card-content>
+    <mat-spinner mode="indeterminate" *ngIf="loading" style="align-self: center"></mat-spinner>
+    <div class="level-item-row" *ngIf="!loading">
+      <span>Créer un niveau</span>
+      <mat-form-field  appearance="fill">
+        <mat-label>Objectif de tours</mat-label>
+        <input type="number" matInput [formControl]="turnObjectiveFormControl" [(ngModel)]="turnObjective">
+        <mat-error *ngIf="turnObjectiveFormControl.hasError('min') && !turnObjectiveFormControl.hasError('required')">
+          Nombre de tours incorrects
+        </mat-error>
+        <mat-error *ngIf="turnObjectiveFormControl.hasError('required')">
+          Le nombre de tours est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-button (click)="onSaveClick()">Ajouter</button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

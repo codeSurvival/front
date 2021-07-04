@@ -1,0 +1,22 @@
+<mat-card class="regex-item-card">
+  <mat-card-content>
+    <mat-spinner mode="indeterminate" *ngIf="loading" style="align-self: center"></mat-spinner>
+    <div class="regex-item-row" *ngIf="!loading">
+      <mat-form-field  appearance="fill">
+        <mat-label>Pattern</mat-label>
+        <input type="text" matInput [formControl]="regexPatternFormControl" [(ngModel)]="regex.pattern">
+        <mat-error *ngIf="regexPatternFormControl.hasError('required')">
+          Le pattern de la regex est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field  appearance="fill">
+        <mat-label>Langage</mat-label>
+        <mat-select [(value)]="regex.language.id">
+          <mat-option *ngFor="let language of languagesList" value="{{language.id}}">{{language.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span><button mat-button (click)="onSaveClick(regex)">Sauvegarder</button> </span>
+    </div>
+  </mat-card-content>
+</mat-card>

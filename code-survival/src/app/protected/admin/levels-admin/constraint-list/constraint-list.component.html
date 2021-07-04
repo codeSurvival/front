@@ -1,0 +1,9 @@
+<div *ngIf="constraintList.length > 0; else empty_list">
+  <div *ngFor="let constraint of constraintList" class="constraint-item">
+    <app-constraint-item [constraint]=constraint [languagesList]="languagesList"></app-constraint-item>
+  </div>
+</div>
+<ng-template #empty_list> <div>
+  Aucune contrainte
+</div></ng-template>
+<app-new-constraint-item></app-new-constraint-item>

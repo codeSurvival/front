@@ -1,0 +1,26 @@
+<div>
+
+
+  <div *ngFor="let level of levelsList" class="level-item">
+    <app-level-item [level]="level"></app-level-item>
+  </div>
+  <app-new-level-item></app-new-level-item>
+<!--    <mat-card *ngFor="let level of levelsList" class="level-item">-->
+<!--      <mat-card-content>-->
+<!--        <div class="level-item-row">-->
+<!--          <span>Niveau {{level.ordinalValue}}</span>-->
+<!--          <mat-form-field  appearance="fill">-->
+<!--            <mat-label>Objectif de tours</mat-label>-->
+<!--            <input type="email" matInput [formControl]="turnObjectiveFormControl" [(ngModel)]="level.turnObjective">-->
+<!--            <mat-error *ngIf="turnObjectiveFormControl.hasError('min') && !turnObjectiveFormControl.hasError('required')">-->
+<!--              Nombre de tours incorrects-->
+<!--            </mat-error>-->
+<!--            <mat-error *ngIf="turnObjectiveFormControl.hasError('required')">-->
+<!--              Le nombre de tours est <strong>requis</strong>-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+<!--          <span><button mat-button>Sauvegarder</button> </span>-->
+<!--        </div>-->
+<!--      </mat-card-content>-->
+<!--    </mat-card>-->
+</div>

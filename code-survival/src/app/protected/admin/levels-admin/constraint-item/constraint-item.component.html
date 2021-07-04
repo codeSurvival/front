@@ -1,0 +1,34 @@
+<mat-card class="constraint-item-card">
+  <mat-card-content>
+    <mat-spinner mode="indeterminate" *ngIf="loading" style="align-self: center"></mat-spinner>
+    <div class="constraint-item-row" *ngIf="!loading">
+      <mat-form-field  appearance="fill">
+        <mat-label>Nom</mat-label>
+        <input type="text" matInput [formControl]="constraintNameFormControl" [(ngModel)]="constraint.name">
+        <mat-error *ngIf="(constraintNameFormControl.hasError('max') || constraintNameFormControl.hasError('min')) && !constraintNameFormControl.hasError('required')">
+          Le nom doit faire entre 4 et 20 caractères
+        </mat-error>
+        <mat-error *ngIf="constraintNameFormControl.hasError('required')">
+          Le nom de contrainte est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field  appearance="fill">
+        <mat-label>Warning</mat-label>
+        <input type="text" matInput [formControl]="constraintWarningFormControl" [(ngModel)]="constraint.warning">
+        <mat-error *ngIf="(constraintWarningFormControl.hasError('max') || constraintWarningFormControl.hasError('min')) && !constraintWarningFormControl.hasError('required')">
+          Le warning doit faire entre 10 et 100 caractères
+        </mat-error>
+        <mat-error *ngIf="constraintWarningFormControl.hasError('required')">
+          Le warning de contrainte est <strong>requis</strong>
+        </mat-error>
+      </mat-form-field>
+      <span><button mat-button (click)="onSaveClick(constraint)">Sauvegarder</button> </span>
+    </div>
+  </mat-card-content>
+</mat-card>
+<div class="regex-list">
+  <app-regex-list [languagesList]="languagesList" [regexList]="constraint.regexes"></app-regex-list>
+
+</div>
+
