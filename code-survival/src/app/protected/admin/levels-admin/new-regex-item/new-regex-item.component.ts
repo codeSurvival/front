@@ -1,7 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {Regex} from '../../../../shared/models/levels/regex';
 import {LanguageResponse} from '../../../../shared/models/languages/language-response';
+import {Constraint} from '../../../../shared/models/levels/constraint';
+import {RegexCreateDto} from '../../../../shared/dtos/levels/regex-create-dto';
 
 @Component({
   selector: 'app-new-regex-item',
@@ -12,6 +14,11 @@ export class NewRegexItemComponent implements OnInit {
   loading = false;
 
   pattern = '';
+
+
+
+  @Output()
+  create = new EventEmitter<RegexCreateDto>();
 
 
   @Input()
@@ -34,7 +41,8 @@ export class NewRegexItemComponent implements OnInit {
 
 
   onSaveClick(): void {
-    console.log(this.languageId);
+    const creationDto = new RegexCreateDto(this.pattern, this.languageId);
+    this.create.emit(creationDto);
   }
 
 }

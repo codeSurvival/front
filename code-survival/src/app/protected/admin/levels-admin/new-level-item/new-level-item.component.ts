@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {LightLevel} from '../../../../shared/models/levels/light-level';
 import {LevelsService} from '../../../../core/services/levels.service';
@@ -18,6 +18,10 @@ export class NewLevelItemComponent implements OnInit {
     Validators.min(1),
   ]);
 
+
+  @Output()
+  update = new EventEmitter<boolean>();
+
   loading = false;
 
   turnObjective: number = 10;
@@ -29,18 +33,12 @@ export class NewLevelItemComponent implements OnInit {
   }
 
   onSaveClick(): void {
-    this.loading = true;
     const levelCreateDto = new LevelCreateDto(this.turnObjective);
     this.levelsService.save(levelCreateDto).subscribe(
       value => {
-        timer(300).subscribe(x => {
-          this.loading = false;
-        });
+        this.update.emit(true);
       }, error => {
-        timer(300).subscribe(x => {
-          this.loading = false;
           this.unknownError();
-        });
       }
     );
   }

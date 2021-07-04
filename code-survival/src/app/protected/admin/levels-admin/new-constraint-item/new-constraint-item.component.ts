@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {Constraint} from '../../../../shared/models/levels/constraint';
 
@@ -11,6 +11,9 @@ export class NewConstraintItemComponent implements OnInit {
 
   name = '';
   warning = '';
+
+  @Output()
+  create = new EventEmitter<Constraint>();
 
   constraintNameFormControl = new FormControl('', [
     Validators.required,
@@ -29,7 +32,8 @@ export class NewConstraintItemComponent implements OnInit {
   }
 
   onSaveClick(): void {
-    console.log('create');
+    const creationDTO = new Constraint(null, this.name, this.warning, []);
+    this.create.emit(creationDTO);
   }
 
 }

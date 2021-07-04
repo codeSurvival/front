@@ -1,9 +1,13 @@
-<div *ngIf="constraintList.length > 0; else empty_list">
+<div *ngIf="constraintList && constraintList.length > 0; else empty_list">
   <div *ngFor="let constraint of constraintList" class="constraint-item">
-    <app-constraint-item [constraint]=constraint [languagesList]="languagesList"></app-constraint-item>
+    <app-constraint-item
+      (createRegex)="onCreateRegex($event)"
+      [constraint]="constraint"
+      [levelId]="levelId"
+      [languagesList]="languagesList"></app-constraint-item>
   </div>
 </div>
 <ng-template #empty_list> <div>
   Aucune contrainte
 </div></ng-template>
-<app-new-constraint-item></app-new-constraint-item>
+<app-new-constraint-item (create)="onCreate($event)"></app-new-constraint-item>

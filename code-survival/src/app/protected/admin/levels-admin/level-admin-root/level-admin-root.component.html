@@ -1,2 +1,8 @@
 <h1>Edition du niveau {{levelId}}</h1>
-<app-constraint-list [languagesList]="languages" [constraintList]="constraints" ></app-constraint-list>
+<app-constraint-list *ngIf="level && !loading"
+                     (createRegex)="onCreateRegex($event)"
+                     (createConstraint)="onCreateConstraint($event)"
+                     [levelId]="levelId"
+                     [languagesList]="languages"
+                     [constraintList]="constraints" ></app-constraint-list>
+<mat-spinner mode="indeterminate" *ngIf="loading" style="align-self: center"></mat-spinner>

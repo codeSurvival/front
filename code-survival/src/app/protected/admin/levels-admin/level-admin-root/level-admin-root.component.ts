@@ -7,6 +7,8 @@ import {Constraint} from '../../../../shared/models/levels/constraint';
 import {LanguageService} from '../../../../core/services/http/language.service';
 import {LanguageResponse} from '../../../../shared/models/languages/language-response';
 import Swal from 'sweetalert2';
+import {timer} from 'rxjs';
+import {RegexCreateDto} from '../../../../shared/dtos/levels/regex-create-dto';
 
 @Component({
   selector: 'app-level-admin-root',
@@ -19,6 +21,8 @@ export class LevelAdminRootComponent implements OnInit {
   level!: Level;
   constraints: Constraint[] = [];
   languages: LanguageResponse[] = [];
+
+  loading = true;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -38,16 +42,7 @@ export class LevelAdminRootComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.levelsService.getLevel(this.levelId).subscribe(async (value) => {
-      this.level = value;
-      this.constraints = this.level.constraints;
-
-      console.log(this.level);
-    }, (err: HttpErrorResponse) => {
-      if (err.status === 409) {
-        this.router.navigate(['/admin/levels']);
-      }
-    });
+    this.loadLevel();
 
     this.languageService.getLanguages().subscribe( async (value) => {
       this.languages = value;
@@ -61,6 +56,22 @@ export class LevelAdminRootComponent implements OnInit {
     console.log(this.level);
   }
 
+  loadLevel(): void {
+    this.loading = true;
+    this.levelsService.getLevel(this.levelId).subscribe(async (value) => {
+      this.level = value;
+      this.constraints = this.level.constraints;
+      this.loading = false;
+
+      console.log(this.level);
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 409) {
+        this.loading = false;
+        this.router.navigate(['/admin/levels']);
+      }
+    });
+  }
+
   private unknownError(): void {
     Swal.fire({
       text: 'Erreur inconnue, veuillez contacter les développeurs',
@@ -68,4 +79,35 @@ export class LevelAdminRootComponent implements OnInit {
     });
   }
 
+  onCreateConstraint($event: Constraint): void {
+    this.loading = true;
+    this.levelsService.saveConstraint(this.levelId, $event).subscribe(
+      value => {
+        timer(300).subscribe(x => {
+          this.loadLevel();
+        });
+      }, error => {
+        timer(300).subscribe(x => {
+          this.loading = false;
+          this.unknownError();
+        });
+      }
+    );
+  }
+
+  onCreateRegex($event: {dto: RegexCreateDto, constraintId: string}): void {
+    this.loading = true;
+    this.levelsService.saveRegex(this.levelId, $event.constraintId, $event.dto, null).subscribe(
+      value => {
+        timer(300).subscribe(x => {
+          this.loadLevel();
+        });
+      }, error => {
+        timer(300).subscribe(x => {
+          this.loading = false;
+          this.unknownError();
+        });
+      }
+    );
+  }
 }

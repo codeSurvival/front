@@ -4,7 +4,7 @@
   <div *ngFor="let level of levelsList" class="level-item">
     <app-level-item [level]="level"></app-level-item>
   </div>
-  <app-new-level-item></app-new-level-item>
+  <app-new-level-item (update)="onUpdate($event)"></app-new-level-item>
 <!--    <mat-card *ngFor="let level of levelsList" class="level-item">-->
 <!--      <mat-card-content>-->
 <!--        <div class="level-item-row">-->

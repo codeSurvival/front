@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {LightLevel} from '../../../../shared/models/levels/light-level';
 import {FormControl, Validators} from '@angular/forms';
 
@@ -10,6 +10,9 @@ import {FormControl, Validators} from '@angular/forms';
 export class LevelsListComponent implements OnInit {
 
 
+  @Output()
+  update = new EventEmitter<boolean>();
+
 
   @Input()
   levelsList: LightLevel[] = [];
@@ -19,4 +22,7 @@ export class LevelsListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onUpdate($event: boolean): void {
+    this.update.emit($event);
+  }
 }

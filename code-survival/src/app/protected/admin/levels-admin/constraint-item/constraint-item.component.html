@@ -28,7 +28,7 @@
   </mat-card-content>
 </mat-card>
 <div class="regex-list">
-  <app-regex-list [languagesList]="languagesList" [regexList]="constraint.regexes"></app-regex-list>
+  <app-regex-list (create)="onCreateRegex($event)" [levelId]="levelId" [constraintId]="constraintId" [languagesList]="languagesList" [regexList]="constraint.regexes"></app-regex-list>
 
 </div>
 
