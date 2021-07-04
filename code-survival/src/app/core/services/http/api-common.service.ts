@@ -12,9 +12,7 @@ export class ApiCommonService {
   constructor(private http: HttpClient) {
   }
 
-
-
-  public createAndLocate<T>(url: string, body: T ): Observable<string | null> {
+  public createAndLocate<T>(url: string, body: T): Observable<string | null> {
     return this.http.post(url, body, {observe: 'response'}).pipe(
       map(value => value.headers.get('location'))
     );

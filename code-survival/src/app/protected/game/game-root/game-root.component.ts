@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LanguageResponse} from '../../../shared/models/languages/language-response';
 import {LanguageService} from '../../../core/services/http/language.service';
 import {ConnectedUser} from '../../../shared/models/users/connected-user';
-import {BehaviorSubject, Subject, Subscription} from 'rxjs';
+import {BehaviorSubject, Subscription} from 'rxjs';
 import {UserStateService} from '../../../core/services/user-state.service';
-import {CodeExecutionCommandDTO} from '../../../shared/dtos/code/code-execution-command-dto';
 import {CodeService} from '../../../core/services/http/code.service';
 import {CodeExecutionResponse} from '../../../shared/models/codes/code-execution-response';
 import {MatDialog} from '@angular/material/dialog';
-import {GameRulesFailureComponent} from '../game-rules-failure/game-rules-failure.component';
-
+import {GameEventService} from '../../../core/services/game-event.service';
+import {environment} from '../../../../environments/environment';
+import {CodeExecutionCommandDTO} from "../../../shared/dtos/code/code-execution-command-dto";
+import {GameRulesFailureComponent} from "../game-rules-failure/game-rules-failure.component";
 
 
 @Component({
@@ -18,11 +19,12 @@ import {GameRulesFailureComponent} from '../game-rules-failure/game-rules-failur
   templateUrl: './game-root.component.html',
   styleUrls: ['./game-root.component.scss']
 })
-export class GameRootComponent implements OnInit {
+export class GameRootComponent implements OnInit, OnDestroy {
   code: string;
   languages: LanguageResponse[] = [];
   user!: ConnectedUser | null;
   user$ = new BehaviorSubject<ConnectedUser | null>(null);
+  private servicesUrl = environment.services_url;
 
   private userSub!: Subscription;
   codeResponse = {rulesSuccess : false, failedConstraints : [], similaritySuccess : false } as CodeExecutionResponse;
@@ -32,9 +34,11 @@ export class GameRootComponent implements OnInit {
     private languageService: LanguageService,
     private userStateService: UserStateService,
     private codeService: CodeService,
-    public dialog: MatDialog)
+    public dialog: MatDialog,
+    private gameEventService: GameEventService
+    )
   {
-    this.code = ' public static void main() {\n\tConsole.Writeln("Hello world!");\n}';
+    this.code = 'return MobAction(ActionType.WALK, Direction.UP)\n';
   }
 
   ngOnInit(): void {
@@ -49,6 +53,8 @@ export class GameRootComponent implements OnInit {
       this.user$.next( this.user);
     });
     this.userStateService.loadUser();
+
+    this.subscribeToGameEventListener();
   }
 
   executeCode($event: any): void {
@@ -75,4 +81,13 @@ export class GameRootComponent implements OnInit {
     });
   }
 
+  private subscribeToGameEventListener(): void {
+    this.gameEventService.subscribeToGameEventSse().subscribe(
+      data => console.log(data)
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.gameEventService.clearGameEventSubscription();
+  }
 }
