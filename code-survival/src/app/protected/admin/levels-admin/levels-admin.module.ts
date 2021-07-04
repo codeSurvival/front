@@ -15,6 +15,8 @@ import { RegexItemComponent } from './regex-item/regex-item.component';
 import { NewLevelItemComponent } from './new-level-item/new-level-item.component';
 import { NewConstraintItemComponent } from './new-constraint-item/new-constraint-item.component';
 import { NewRegexItemComponent } from './new-regex-item/new-regex-item.component';
+import { RegexPlaygroundComponent } from './regex-playground/regex-playground.component';
+import {MonacoEditorModule} from '@materia-ui/ngx-monaco-editor';
 
 
 @NgModule({
@@ -31,13 +33,15 @@ import { NewRegexItemComponent } from './new-regex-item/new-regex-item.component
     NewConstraintItemComponent,
     NewConstraintItemComponent,
     NewRegexItemComponent,
+    RegexPlaygroundComponent,
   ],
-  imports: [
-    CommonModule,
-    LevelsAdminRoutingModule,
-    SharedModule,
-    FormsModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        LevelsAdminRoutingModule,
+        SharedModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MonacoEditorModule
+    ]
 })
 export class LevelsAdminModule { }

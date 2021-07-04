@@ -1,4 +1,9 @@
-<h1>Edition du niveau {{levelId}}</h1>
+<div id="level-admin-header">
+  <h1>Edition du niveau {{levelId}}</h1>
+  <button mat-icon-button aria-label="Tester vos regex" (click)="onClickRegexTestModal()">
+    <mat-icon> live_help</mat-icon>
+  </button>
+</div>
 <app-constraint-list *ngIf="level && !loading"
                      (createRegex)="onCreateRegex($event)"
                      (createConstraint)="onCreateConstraint($event)"

@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Essayez votre Regex !</h1>
+<div mat-dialog-content >
+  <div class="row">
+    <div class="column">
+      <form [formGroup]="regexForm">
+        <div>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Regex</mat-label>
+            <input matInput type="text" formControlName="regex">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Texte</mat-label>
+            <textarea matInput type="text" formControlName="code"></textarea>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+    <div class="column">
+      <button mat-button (click)="onTestRegex()">Tester la Regex</button>
+      <button [disabled]="!match" mat-button (click)="onResetRegex()">Réinitialiser</button>
+      <span *ngIf="match == 'match'">Match !</span>
+      <span *ngIf="match == 'nomatch'">Aucune Correspondance</span>
+    </div>
+
+  </div>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Retour</button>
+</mat-dialog-actions>

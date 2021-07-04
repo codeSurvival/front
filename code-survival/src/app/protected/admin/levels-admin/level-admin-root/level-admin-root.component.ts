@@ -9,6 +9,9 @@ import {LanguageResponse} from '../../../../shared/models/languages/language-res
 import Swal from 'sweetalert2';
 import {timer} from 'rxjs';
 import {RegexCreateDto} from '../../../../shared/dtos/levels/regex-create-dto';
+import {MatDialog} from '@angular/material/dialog';
+import {GameRulesFailureComponent} from '../../../game/game-rules-failure/game-rules-failure.component';
+import {RegexPlaygroundComponent} from '../regex-playground/regex-playground.component';
 
 @Component({
   selector: 'app-level-admin-root',
@@ -27,7 +30,8 @@ export class LevelAdminRootComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private levelsService: LevelsService,
-              private languageService: LanguageService)
+              private languageService: LanguageService,
+              public dialog: MatDialog,)
   {
     this.route.params.subscribe(params => {
       if (params.id) {
@@ -109,5 +113,15 @@ export class LevelAdminRootComponent implements OnInit {
         });
       }
     );
+  }
+
+  onClickRegexTestModal(): void {
+    const dialogRef = this.dialog.open(RegexPlaygroundComponent, {
+      height: '400px',
+      width: '600px',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('close dialog');
+    });
   }
 }
