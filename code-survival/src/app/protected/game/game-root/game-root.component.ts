@@ -9,9 +9,11 @@ import {CodeService} from '../../../core/services/http/code.service';
 import {CodeExecutionResponse} from '../../../shared/models/codes/code-execution-response';
 import {MatDialog} from '@angular/material/dialog';
 import {GameEventService} from '../../../core/services/game-event.service';
-import {environment} from '../../../../environments/environment';
 import {CodeExecutionCommandDTO} from '../../../shared/dtos/code/code-execution-command-dto';
 import {GameRulesFailureComponent} from '../game-rules-failure/game-rules-failure.component';
+import {EventMessageSource} from '../../../core/services/http/event-message-source';
+import {SseEmissionFactory} from '../../../shared/factories/sse/sse-emission-factory';
+import {JacketDTO} from '../../../shared/dtos/sse/jacket-dto';
 
 
 @Component({
@@ -24,7 +26,6 @@ export class GameRootComponent implements OnInit, OnDestroy {
   languages: LanguageResponse[] = [];
   user!: ConnectedUser | null;
   user$ = new BehaviorSubject<ConnectedUser | null>(null);
-  private servicesUrl = environment.services_url;
 
   private userSub!: Subscription;
   codeResponse = {rulesSuccess : false, failedConstraints : [], similaritySuccess : false } as CodeExecutionResponse;
@@ -35,7 +36,8 @@ export class GameRootComponent implements OnInit, OnDestroy {
     private userStateService: UserStateService,
     private codeService: CodeService,
     public dialog: MatDialog,
-    private gameEventService: GameEventService
+    private gameEventService: GameEventService,
+    private sseEmissionFactory: SseEmissionFactory,
     )
   {
     this.code = 'return MobAction(ActionType.WALK, Direction.UP)\n';
@@ -54,7 +56,7 @@ export class GameRootComponent implements OnInit, OnDestroy {
     });
     this.userStateService.loadUser();
 
-    this.subscribeToGameEventListener();
+    this.listenToServer();
   }
 
   executeCode($event: any): void {
@@ -81,9 +83,12 @@ export class GameRootComponent implements OnInit, OnDestroy {
     });
   }
 
-  private subscribeToGameEventListener(): void {
-    this.gameEventService.subscribeToGameEventSse().subscribe(
-        (data: string) => console.log(data)
+  private listenToServer(): void {
+    this.gameEventService.subscribeToSSE().subscribe(
+        (event: EventMessageSource) => {
+          const jacket: JacketDTO = JSON.parse(event.eventMsg.data);
+          jacket.serializedObject = this.sseEmissionFactory.get(jacket);
+        }
     );
   }
 

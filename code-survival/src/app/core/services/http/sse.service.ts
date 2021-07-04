@@ -2,11 +2,7 @@ import {Injectable, NgZone} from '@angular/core';
 import {Observable} from 'rxjs';
 import {EventSourcePolyfill, OnMessageEvent} from 'ng-event-source';
 import {AuthenticationService} from '../authentication.service';
-
-interface EventMessageSource {
-  eventSrc: EventSourcePolyfill;
-  eventMsg: OnMessageEvent;
-}
+import {EventMessageSource} from './event-message-source';
 
 @Injectable({
   providedIn: 'root'
@@ -44,4 +40,6 @@ export class SseService {
     this.connections.get(url)?.close();
     this.connections.delete(url);
   }
+
+
 }
