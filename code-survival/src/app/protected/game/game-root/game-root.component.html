@@ -8,7 +8,8 @@
       <app-game-actions (executeCodeClicked)="executeCode($event)"></app-game-actions>
     </div>
     <div class="column">
-      <app-game-state></app-game-state>
+
+      <app-game-state [gameEvents]="gameEvents" [world]="lastWorld" #game></app-game-state>
     </div>
   </div>
 

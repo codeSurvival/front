@@ -13,7 +13,8 @@ import {CodeExecutionCommandDTO} from '../../../shared/dtos/code/code-execution-
 import {GameRulesFailureComponent} from '../game-rules-failure/game-rules-failure.component';
 import {EventMessageSource} from '../../../core/services/http/event-message-source';
 import {SseEmissionFactory} from '../../../shared/factories/sse/sse-emission-factory';
-import {JacketDTO} from '../../../shared/dtos/sse/jacket-dto';
+import {JacketDTO, SseEmissionType} from '../../../shared/dtos/sse/jacket-dto';
+import {GameEventDTO, WorldDTO} from '../../../shared/dtos/sse/game-event-dto';
 
 
 @Component({
@@ -30,6 +31,9 @@ export class GameRootComponent implements OnInit, OnDestroy {
   private userSub!: Subscription;
   codeResponse = {rulesSuccess : false, failedConstraints : [], similaritySuccess : false } as CodeExecutionResponse;
 
+  gameEvents: GameEventDTO[] = [];
+  lastWorld: WorldDTO | null = null;
+
   constructor(
     private router: Router,
     private languageService: LanguageService,
@@ -40,7 +44,7 @@ export class GameRootComponent implements OnInit, OnDestroy {
     private sseEmissionFactory: SseEmissionFactory,
     )
   {
-    this.code = 'return MobAction(ActionType.WALK, Direction.UP)\n';
+    this.code = 'return MobAction(ActionType.TRIPPED, Direction.UP)\n';
   }
 
   ngOnInit(): void {
@@ -87,7 +91,17 @@ export class GameRootComponent implements OnInit, OnDestroy {
     this.gameEventService.subscribeToSSE().subscribe(
         (event: EventMessageSource) => {
           const jacket: JacketDTO = JSON.parse(event.eventMsg.data);
-          jacket.serializedObject = this.sseEmissionFactory.get(jacket);
+          jacket.data = this.sseEmissionFactory.get(jacket);
+          console.log(jacket.data);
+          switch (jacket.type) {
+            case SseEmissionType.GAME_EVENT:
+              this.gameEvents.push(jacket.data as GameEventDTO);
+              this.lastWorld = (jacket.data as GameEventDTO).world;
+              console.log(this.lastWorld);
+              console.log(this.gameEvents);
+              break;
+            case SseEmissionType.HEARTBEAT:
+          }
         }
     );
   }

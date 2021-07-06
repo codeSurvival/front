@@ -1,1 +1,17 @@
-<p>game-state works!</p>
+<div *ngIf="displayedField">
+  <table>
+    <tbody>
+    <tr *ngFor="let row of displayedField.rows">
+      <td *ngFor="let tile of row">
+        {{tile.asciiRepresentation}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="gameEvents">
+  <div *ngFor="let gameEvent of gameEvents">
+    Action : {{gameEvent.action.type}}
+  </div>
+</div>

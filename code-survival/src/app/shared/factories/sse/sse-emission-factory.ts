@@ -8,7 +8,7 @@ export class SseEmissionFactory {
   public get(jacket: JacketDTO): SseEmission {
     switch (jacket.type) {
       case SseEmissionType.GAME_EVENT:
-        return JSON.parse(jacket.serializedObject.toString());
+        return JSON.parse(jacket.data.toString());
       default:
         return '';
     }

@@ -9,5 +9,5 @@ export type SseEmission = string | GameEventDTO;
 
 export interface JacketDTO {
   type: SseEmissionType;
-  serializedObject: SseEmission;
+  data: SseEmission;
 }

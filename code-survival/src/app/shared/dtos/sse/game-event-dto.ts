@@ -28,11 +28,12 @@ export interface WorldDTO {
 
 export interface GridDTO {
   tiles: TileDTO[];
+  gridSize: number;
 }
 
 export interface TileDTO {
-  coordonates: Coordonates;
-  contanumber: TileContaint[];
+  coordinates: Coordinates;
+  containt: TileContaint[];
   type: TileType;
 }
 
@@ -43,24 +44,25 @@ export enum TileContaint {
 export enum TileType {
   GRASS = 'GRASS',
   PIT = 'PIT',
+  NULL = 'NULL',
 }
 
-interface Coordonates {
+export interface Coordinates {
   x: number;
   y: number;
 }
 
 
-interface MobDTO {
+export interface MobDTO {
   mobState: MobStateDTO;
 }
 
-interface MobStateDTO {
+export interface MobStateDTO {
   health: number;
   position: CoordinatesDTO;
 }
 
-interface CoordinatesDTO {
+export interface CoordinatesDTO {
   x: number;
   y: number;
 }
