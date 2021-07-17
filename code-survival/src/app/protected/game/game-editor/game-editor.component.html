@@ -1,4 +1,5 @@
-<p>game-editor works!</p>
 <div class="row" style="height: 500px">
+  <span class="decide-declaration">fun decide(state: MobState): MobAction {{"{"}}</span>
   <ngx-monaco-editor class="h-500 w-100" [options]="editorOptions" [(ngModel)]="code" (ngModelChange)="codeChange.emit(code)"></ngx-monaco-editor>
+  }
 </div>

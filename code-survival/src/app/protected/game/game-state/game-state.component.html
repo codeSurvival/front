@@ -10,8 +10,10 @@
   </table>
 </div>
 
-<div *ngIf="gameEvents">
+<div *ngIf="gameEvents" class="events">
   <div *ngFor="let gameEvent of gameEvents">
-    Action : {{gameEvent.action.type}}
+    <div *ngIf="gameEvent.action">
+      Action : {{gameEvent.action.type}}
+    </div>
   </div>
 </div>

@@ -64,6 +64,7 @@ export class GameRootComponent implements OnInit, OnDestroy {
   }
 
   executeCode($event: any): void {
+
     const chosenLanguageId = this.languages[0].id;
 
     const executionCommandDTO = new CodeExecutionCommandDTO(this.code, chosenLanguageId);
@@ -92,13 +93,11 @@ export class GameRootComponent implements OnInit, OnDestroy {
         (event: EventMessageSource) => {
           const jacket: JacketDTO = JSON.parse(event.eventMsg.data);
           jacket.data = this.sseEmissionFactory.get(jacket);
-          console.log(jacket.data);
           switch (jacket.type) {
             case SseEmissionType.GAME_EVENT:
               this.gameEvents.push(jacket.data as GameEventDTO);
               this.lastWorld = (jacket.data as GameEventDTO).world;
-              console.log(this.lastWorld);
-              console.log(this.gameEvents);
+              console.log(this.gameEvents)
               break;
             case SseEmissionType.HEARTBEAT:
           }

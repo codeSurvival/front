@@ -1,0 +1,13 @@
+version: '3'
+services:
+  code-survival-front:
+    image: code-survival/front
+    container_name: code-survival-front
+    ports:
+      - "4020:80"
+    tty: true
+    expose:
+      - "4020"
+    stdin_open: true
+    environment:
+      - MODE=dev

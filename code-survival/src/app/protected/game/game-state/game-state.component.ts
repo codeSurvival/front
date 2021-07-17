@@ -24,8 +24,6 @@ export class GameStateComponent implements OnInit, OnChanges {
     const worldDTO = (changes.world.currentValue as WorldDTO);
     if (worldDTO) {
       this.displayedField = new DisplayedField(worldDTO.grid, worldDTO.mobDTO.mobState);
-      console.log('aoieu');
-      console.log(this.displayedField);
     }
   }
 }

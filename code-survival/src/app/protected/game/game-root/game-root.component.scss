@@ -2,6 +2,10 @@
   display: flex;
 }
 
-.column {
-  flex: 50%;
+.editor {
+  flex: 70%;
+}
+
+.map {
+  flex: 30%;
 }
