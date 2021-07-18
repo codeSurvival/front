@@ -108,4 +108,12 @@ export class GameRootComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.gameEventService.clearGameEventSubscription();
   }
+
+  onRulesOpen(): void {
+
+  }
+
+  onKotlinLibOpen(): void {
+
+  }
 }

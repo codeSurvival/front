@@ -4,6 +4,8 @@
   src: local("PressStart"), url(./assets/fonts/PressStart2P-Regular.ttf) format("truetype");
 }
 
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
 @import '~bootstrap/scss/bootstrap';
 
 // Custom Theming for Angular Material
