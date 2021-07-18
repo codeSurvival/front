@@ -31,8 +31,8 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ secrets.DOCKER_REGISTRY }}/qtmsheep/codesurvival-front:latest
-            ${{ secrets.DOCKER_REGISTRY }}/qtmsheep/codesurvival-front:${{ steps.tag_name.outputs.TAG_NAME }}
+            ${{ secrets.DOCKER_REGISTRY }}/unarbre/codesurvival-front:latest
+            ${{ secrets.DOCKER_REGISTRY }}/unarbre/codesurvival-front:${{ steps.tag_name.outputs.TAG_NAME }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
