@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  services_url: 'http://localhost:8081',
+  services_url: 'https://codesurvival.api.flatemars.com',
   localStorageTokenIdentifier: 'whatatoken'
 };
 

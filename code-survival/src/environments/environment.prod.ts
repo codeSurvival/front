@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  services_url: '${API_URL}',
+  services_url: 'https://codesurvival.api.flatemars.com',
   localStorageTokenIdentifier: 'whatatoken'
 };
