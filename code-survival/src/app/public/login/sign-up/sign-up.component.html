@@ -25,22 +25,25 @@
     </div>
     <div formGroupName="passwordForm">
       <div class="form-group">
-        <mat-form-field id="signup-pwd-ff" appearance="outline" [class]="formFieldClass">
-          <mat-label>Mot de passe*</mat-label>
-          <input formControlName="password" id="password-sign-up" matInput type="password">
-          <mat-error *ngIf="pwdCtrl.dirty && pwdCtrl.hasError('minlength')">Minimum 8 caractères
-          </mat-error>
-          <mat-error *ngIf="pwdCtrl.dirty && pwdCtrl.hasError('required')">Le mot de passe est
-            obligatoire
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field id="signup-confirm-pwd-ff" appearance="outline" [class]="formFieldClass">
-          <mat-label>Confirmation*</mat-label>
-          <input formControlName="confirm" id="confirm-password-sign-up" matInput type="password">
-          <mat-error *ngIf="confirmPwdCtrl.dirty && confirmPwdCtrl.hasError('required')">La confirmation
-            de mot de passe est obligatoire
-          </mat-error>
-        </mat-form-field>
+        <div class="pwd-container">
+
+          <mat-form-field id="signup-pwd-ff" appearance="outline" [class]="formFieldClass">
+            <mat-label>Mot de passe*</mat-label>
+            <input formControlName="password" id="password-sign-up" matInput type="password">
+            <mat-error *ngIf="pwdCtrl.dirty && pwdCtrl.hasError('minlength')">Minimum 8 caractères
+            </mat-error>
+            <mat-error *ngIf="pwdCtrl.dirty && pwdCtrl.hasError('required')">Le mot de passe est
+              obligatoire
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field id="signup-confirm-pwd-ff" appearance="outline" [class]="formFieldClass">
+            <mat-label>Confirmation*</mat-label>
+            <input formControlName="confirm" id="confirm-password-sign-up" matInput type="password">
+            <mat-error *ngIf="confirmPwdCtrl.dirty && confirmPwdCtrl.hasError('required')">La confirmation
+              de mot de passe est obligatoire
+            </mat-error>
+          </mat-form-field>
+        </div>
         <mat-error *ngIf="!passwordForm.pristine && passwordForm.hasError('matchingError')">Les mots de passe ne
           correspondent pas
         </mat-error>
@@ -48,10 +51,10 @@
     </div>
   </div>
   <div class="row d-flex justify-content-start sign-in-actions">
-    <button id="register-button-sign-up"  [disabled]="!isFormValid()" class="border-primary mx-2" color="primary" mat-stroked-button type="submit">
+    <button id="register-button-sign-up"  [disabled]="!isFormValid()" class="border-primary mx-2" color="primary" mat-raised-button type="submit">
       Valider
     </button>
-    <button *ngIf="resetAvailable" id="register-button-reset"  class="border-danger  mx-2" color="warn" mat-stroked-button type="button" (click)="reset()">
+    <button *ngIf="resetAvailable" id="register-button-reset"  class="border-danger  mx-2" color="warn" mat-raised-button type="button" (click)="reset()">
       Réinitialiser
     </button>
   </div>

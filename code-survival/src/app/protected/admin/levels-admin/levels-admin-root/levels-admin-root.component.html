@@ -1,3 +1,5 @@
-<h1>Administration des niveaux</h1>
+<div id="level-admin-header">
+  <h1>Administration des niveaux</h1>
+</div>
 <app-levels-list *ngIf="!loading" (update)="onUpdate($event)" [levelsList]="levels"></app-levels-list>
 <mat-spinner mode="indeterminate" *ngIf="loading" style="align-self: center"></mat-spinner>

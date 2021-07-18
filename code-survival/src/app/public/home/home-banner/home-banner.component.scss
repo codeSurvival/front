@@ -6,6 +6,24 @@ h1 {
 .home-card {
   text-align: center;
   margin: 100px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   background-color: teal;
   color: azure;
+}
+
+
+.banner {
+  font-family: "PressStart", Arial, Helvetica, sans-serif;
+  font-size: 50px;
+  margin-top: 100px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.highlight-container {
+  background-color: aliceblue;
 }

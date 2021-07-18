@@ -1,3 +1,23 @@
 .spacer {
   flex: 1 1 auto;
 }
+
+.icon-text-button{
+  display: flex;
+  align-items: center;
+}
+
+.mat-button:hover {
+  color: aliceblue;
+}
+
+.mat-button:focus {
+  color: aliceblue;
+  font-weight: bold;
+}
+
+mat-toolbar {
+  background-color: teal;
+  text-emphasis-color: aliceblue;
+  color: aliceblue;
+}

@@ -1,9 +1,13 @@
 <mat-toolbar *ngIf="!user">
   <span>
-    <a mat-button routerLink="/home" routerLinkActive="active" class="nav-link" data-toggle="tab" id="homeLink">Accueil</a>
+    <a mat-button routerLink="/home" routerLinkActive="active" class="nav-link" data-toggle="tab" id="homeLink">
+      <span class="icon-text-button"><mat-icon>home</mat-icon>Accueil</span>
+    </a>
   </span>
   <span>
-    <a mat-button routerLink="/login" routerLinkActive="active" class="nav-link" data-toggle="tab" id="loginLink">Connexion</a>
+    <a mat-button routerLink="/login" routerLinkActive="active" class="nav-link" data-toggle="tab" id="loginLink">
+      <span class="icon-text-button"><mat-icon>login</mat-icon> Connexion</span>
+    </a>
   </span>
   <span class="spacer"></span>
   <span>
