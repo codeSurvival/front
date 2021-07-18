@@ -1,9 +1,9 @@
 ### STAGE 1: Build ###
 FROM node:12.18.2-alpine AS buildxyz
 WORKDIR /usr/src/app
-COPY package.json package-lock.json ./
+COPY ./code-survival/package.json ./code-survival/package-lock.json ./
 RUN npm install
-COPY . .
+COPY ./code-survival/ .
 RUN npm run build --prod
 
 ### STAGE 2: Run ###
