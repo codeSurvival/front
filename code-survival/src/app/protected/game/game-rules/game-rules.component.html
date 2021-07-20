@@ -1,1 +1,113 @@
-<p>game-rules works!</p>
+<h1 mat-dialog-title>Règles du jeu</h1>
+<div mat-dialog-content>
+  <mat-card>
+    <mat-card-subtitle>1 - Essentiel</mat-card-subtitle>
+    <mat-card-content>
+      Last Beast Game est un jeu de survie où l'objectif est de faire survivre sa créature le plus longtemps possible sur une carte générée aléatoirement.<br>
+
+      Vous devez survivre un certain nombre de tours, selon votre niveau, à chaque fois en respectant des contraintes précises de code.<br><br>
+
+      La fonction dont vous écrivez le corps détermine la décision de votre créature à chaque tour.<br>
+      Elle retourne une <i>Action</i>. Vous n'avez donc qu'une <i>Action</i> par tour<br>
+
+      L'<i>Action</i> à retourner est à instancier avec un type spécifique décrivant l'action et éventuellement des paramètres supplémentaires.<br><br>
+
+      Les <i>Actions</i> de la créature disponibles sont :
+      <ul>
+        <li>
+          <i>Se déplacer</i> : Avancer d'une case, dans la direction voulue
+        </li>
+        <li>
+          <i>Sauter</i> : Avancer de deux cases dans une direction, ignorant un potentiel obstacle sur la route
+        </li>
+        <li>
+          <i>Observer</i> : Consulter les 6 cases du cone partant de soi et allant dans une direction. Le résultat de cette action sera exploitable au prochain tour
+        </li>
+        <li>
+          <i>Se reposer</i> : Ne pas bouger ce tour-ci.
+        </li>
+        <li>
+          <i>Trébucher</i> : Action appelée par défaut si celle retournée par la fonction ne convient pas. La créature perd un point de vie et ne fait rien.
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-subtitle>2 - Survie</mat-card-subtitle>
+    <mat-card-content>
+      Pour survivre, la créature doit simplement maintenir deux jauges jusqu'à l'objectif de tours.<br>
+      Si une seule des deux jauges atteint zéro, la partie est perdue et s'arrête immédiatement.
+
+      <ul>
+        <li>
+          La jauge de <i>santé</i> : allant de 0 à 50 et commençant à 50.
+        </li>
+        <li>
+          La jauge de <i>faim</i> : allant de 0 à 50 et commençant à 50.
+          Elle diminue de 1 à chaque tour.
+          <ul>
+            <li>
+              En dessous de 50% de <i>faim</i> : la créature perd 1 de <i>santé</i> par tour
+            </li>
+            <li>
+              Au dessus de 50% de <i>faim</i> : la créature gagne 1 de <i>santé</i> par tour
+            </li>
+            <li>
+              <i>Manger</i> rend 5 points de <i>faim</i>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      Les valeurs de ces jauges au tour courant peut être consulté librement dans l'algorithme
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-subtitle>3 - Carte</mat-card-subtitle>
+    <mat-card-content>
+      La <i>Carte</i> de jeu est un terrain 2D de 50 cases par 50 cases.<br>
+      La configuration des cases est générée aléatoirement à chaque début de partie.<br>
+      Le <i>type</i> des cases est fixe du début à la fin de la partie, mais leur <i>contenu</i> peut varier.<br><br>
+      <ul>
+        <li>Case <i>herbe</i> ("grass") : Case neutre</li>
+        <li>Case <i>gouffre</i> ("pit") : En finissant son tour sur un gouffre, la créature meurt immédiatement</li>
+        <li>Case <i>arbre</i> ("tree"): Case infranchissable. Essayer de se déplacer sur un arbre fera <i>trébucher</i> la créature et annulera son action</li>
+        <li><i>Nourriture</i> ("food") : Peut être contenu sur une case <i>herbe</i>.
+          De la nourriture apparait périodiquement sur les cases proches des <i>arbres</i>.
+          Finir son tour sur une case contenant de la <i>nourriture</i> revient à <i>manger</i> et rend immédiatement 5 points de <i>faim</i>.
+        </li>
+      </ul>
+      A tout moment, il est possible d'accéder au <i>type</i> et au <i>contenu</i> des 4 cases voisines.<br>
+      Pour consulter des cases plus distantes, il est nécessaire d'utiliser l'action <i>observer</i><br>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-subtitle>4 - Mémoire</mat-card-subtitle>
+    <mat-card-content>
+      La créature dispose de deux types de <i>mémoire</i> auquel il peut accéder librement
+      <ul>
+        <li>La mémoire de carte : Contenant le résultat de toutes les précédentes actions <i>observer</i>, c'est une liste de cases, accessibles par leur coordonnées. Leur valeur et contenu étant figé au moment de leur observation. On peut y accéder mais pas le remplir sans <i>observer</i>.</li>
+        <li>La mémoire libre : Un dictionnaire de strings. On y accède et écrit à volonté dans l'algorithme, mais sa taille est finie. </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-subtitle>5 - Contraintes</mat-card-subtitle>
+    <mat-card-content>
+      Le nombre de tour à survivre est lié au <i>niveau</i> du joueur.<br>
+      Si la créature survit jusqu'à l'objectif, il monte de <i>niveau</i>.<br>
+      Chaque <i>niveau</i> est lié à un ensemble de contraintes.<br>
+      Au premier niveau, le joueur doit respecter l'ensemble des contraintes. Pour chaque niveau supplémentaire, il aura un jeu de contraintes de moins à suivre.<br><br>
+
+      A chaque fois que vous gagnez une partie, votre code sera enregistré. Afin d'encourager à varier votre algorithme, celui-ci devra varier du précédent pour être executé.
+
+    </mat-card-content>
+  </mat-card>
+
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Retour</button>
+</mat-dialog-actions>

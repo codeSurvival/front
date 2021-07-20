@@ -12,6 +12,8 @@ import {FormsModule} from '@angular/forms';
 import { GameActionsComponent } from './game-actions/game-actions.component';
 import {SharedModule} from '../../shared/shared.module';
 import { GameRulesFailureComponent } from './game-rules-failure/game-rules-failure.component';
+import { KotlinLibraryDetailsComponent } from './kotlin-library-details/kotlin-library-details.component';
+import { ActiveConstraintsComponent } from './active-constraints/active-constraints.component';
 
 
 
@@ -23,7 +25,9 @@ import { GameRulesFailureComponent } from './game-rules-failure/game-rules-failu
     GameDocComponent,
     GameStateComponent,
     GameActionsComponent,
-    GameRulesFailureComponent
+    GameRulesFailureComponent,
+    KotlinLibraryDetailsComponent,
+    ActiveConstraintsComponent
   ],
     imports: [
         CommonModule,

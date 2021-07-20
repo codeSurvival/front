@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>Librairie Kotlin</h1>
+<div mat-dialog-content>
+  <mat-card>
+    <mat-card-subtitle>1 - Actions</mat-card-subtitle>
+    <mat-card-content>
+      Instanciation : <br>
+      <span class="code-text">MobAction(val type: ActionType, val target: Direction?)</span>
+      ActionType est une enum :
+      <ul>
+        <li><span class="code-text">WALK</span> *</li>
+        <li><span class="code-text">JUMP</span> *</li>
+        <li><span class="code-text">SCOUT</span> *</li>
+        <li><span class="code-text">REST</span></li>
+        <li><span class="code-text">TRIPPED</span></li>
+      </ul>
+      * : nécessite une direction<br>
+      Direction est une enum: <span class="code-text">UP, DOWN, LEFT, RIGHT</span> <br>
+
+      En cas de retour d'une instanciation hasardeuse de MobAction (ex: WALK sans mouvement), c'est l'action TRIPPED qui sera executée
+    </mat-card-content>
+    <mat-card-subtitle>2 - MobState</mat-card-subtitle>
+    <mat-card-content>
+      Pour accéder à de nombreuses informations sur l'état de la créature et de son environnement
+    </mat-card-content>
+    <mat-card-subtitle>3 - Tiles</mat-card-subtitle>
+    <mat-card-content></mat-card-content>
+    <mat-card-subtitle>4 - Memory</mat-card-subtitle>
+    <mat-card-content></mat-card-content>
+  </mat-card>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Retour</button>
+</mat-dialog-actions>

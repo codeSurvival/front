@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Niveau {{data.userLevel}} - <span *ngIf="level"> Objectif : {{level.turnObjective}} tours !</span></h1>
+<div mat-dialog-content>
+  <div *ngIf="level != null && isLoading == false">
+    <mat-card *ngFor="let constraint of constraints">
+      <mat-card-title>
+        {{constraint.name}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{constraint.warning}}
+      </mat-card-subtitle>
+    </mat-card>
+  </div>
+  <mat-spinner mode="indeterminate" *ngIf="isLoading || level == null" style="align-self: center"></mat-spinner>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Retour</button>
+</mat-dialog-actions>

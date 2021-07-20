@@ -15,6 +15,9 @@ import {EventMessageSource} from '../../../core/services/http/event-message-sour
 import {SseEmissionFactory} from '../../../shared/factories/sse/sse-emission-factory';
 import {JacketDTO, SseEmissionType} from '../../../shared/dtos/sse/jacket-dto';
 import {GameEventDTO, WorldDTO} from '../../../shared/dtos/sse/game-event-dto';
+import {GameRulesComponent} from '../game-rules/game-rules.component';
+import {KotlinLibraryDetailsComponent} from '../kotlin-library-details/kotlin-library-details.component';
+import {ActiveConstraintsComponent} from '../active-constraints/active-constraints.component';
 
 
 @Component({
@@ -110,10 +113,33 @@ export class GameRootComponent implements OnInit, OnDestroy {
   }
 
   onRulesOpen(): void {
-
+    const dialogRef = this.dialog.open(GameRulesComponent, {
+      data: {
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('close dialog');
+    });
   }
 
   onKotlinLibOpen(): void {
+    const dialogRef = this.dialog.open(KotlinLibraryDetailsComponent, {
+      data: {
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('close dialog');
+    });
+  }
 
+  onActiveConstraintsOpen(): void {
+    const dialogRef = this.dialog.open(ActiveConstraintsComponent, {
+      data: {
+        userLevel: this.user?.level
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('close dialog');
+    });
   }
 }

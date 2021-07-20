@@ -4,6 +4,11 @@
   src: local("PressStart"), url(./assets/fonts/PressStart2P-Regular.ttf) format("truetype");
 }
 
+@font-face {
+  font-family: "Fira Code";
+  src: local("Fira Code"), url(./assets/fonts/FiraCode-VariableFont_wght.ttf) format("truetype");
+}
+
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
 @import '~bootstrap/scss/bootstrap';

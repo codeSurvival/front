@@ -11,6 +11,7 @@ import {LevelCreateDto} from '../../shared/dtos/levels/level-create-dto';
 import {Constraint} from '../../shared/models/levels/constraint';
 import {Regex} from '../../shared/models/levels/regex';
 import {RegexCreateDto} from '../../shared/dtos/levels/regex-create-dto';
+import {LevelConstraintsResponse} from '../../shared/dtos/levels/light-constraint-response';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,12 @@ export class LevelsService {
 
   getLevel(id: number): Observable<Level> {
     return this.http.get<Level>(`${this.servicesUrl}/levels/${id}?complete=1`).pipe(
+      catchError(err => EMPTY)
+    );
+  }
+
+  getActiveConstraintsByLevelId(id: number): Observable<LevelConstraintsResponse> {
+    return this.http.get<LevelConstraintsResponse>(`${this.servicesUrl}/levels/${id}/constraints`).pipe(
       catchError(err => EMPTY)
     );
   }
