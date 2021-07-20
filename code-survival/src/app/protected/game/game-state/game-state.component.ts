@@ -11,6 +11,7 @@ export class GameStateComponent implements OnInit, OnChanges {
 
   @Input() gameEvents: GameEventDTO[] = [];
   @Input() world: WorldDTO | null = null;
+  @Input() reset: boolean = false;
 
   displayedField: DisplayedField | null = null;
 
@@ -21,9 +22,15 @@ export class GameStateComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const worldDTO = (changes.world.currentValue as WorldDTO);
-    if (worldDTO) {
-      this.displayedField = new DisplayedField(worldDTO.grid, worldDTO.mobDTO.mobState);
+    if (changes.world && changes.world.currentValue) {
+      this.displayedField = new DisplayedField(
+        changes.world.currentValue.grid,
+        changes.world.currentValue.mobDTO.mobState);
+    }
+
+    if (changes.reset && changes.reset.currentValue === true) {
+      this.gameEvents = [];
+      this.world = null;
     }
   }
 }

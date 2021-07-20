@@ -32,10 +32,11 @@ export class GameRootComponent implements OnInit, OnDestroy {
   user$ = new BehaviorSubject<ConnectedUser | null>(null);
 
   private userSub!: Subscription;
-  codeResponse = {rulesSuccess : false, failedConstraints : [], similaritySuccess : false } as CodeExecutionResponse;
+  codeResponse = {rulesSuccess: false, failedConstraints: [], similaritySuccess: false} as CodeExecutionResponse;
 
   gameEvents: GameEventDTO[] = [];
   lastWorld: WorldDTO | null = null;
+  reset = false;
 
   constructor(
     private router: Router,
@@ -45,21 +46,20 @@ export class GameRootComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private gameEventService: GameEventService,
     private sseEmissionFactory: SseEmissionFactory,
-    )
-  {
+  ) {
     this.code = 'return MobAction(ActionType.TRIPPED, Direction.UP)\n';
   }
 
   ngOnInit(): void {
-    this.languageService.getLanguages().subscribe( async (value) => {
+    this.languageService.getLanguages().subscribe(async (value) => {
       this.languages = value;
       console.log(this.languages);
     });
 
-    this.userSub = this.userStateService.userSubject$.subscribe( user => {
+    this.userSub = this.userStateService.userSubject$.subscribe(user => {
       this.user = user;
       console.log(user);
-      this.user$.next( this.user);
+      this.user$.next(this.user);
     });
     this.userStateService.loadUser();
 
@@ -68,12 +68,14 @@ export class GameRootComponent implements OnInit, OnDestroy {
 
   executeCode($event: any): void {
 
+    this.reset = true;
+
     const chosenLanguageId = this.languages[0].id;
 
     const executionCommandDTO = new CodeExecutionCommandDTO(this.code, chosenLanguageId);
 
 
-    this.codeService.executeCode(executionCommandDTO).subscribe( res => {
+    this.codeService.executeCode(executionCommandDTO).subscribe(res => {
       this.codeResponse = res;
       if (!this.codeResponse.rulesSuccess || !this.codeResponse.similaritySuccess) {
         const dialogRef = this.dialog.open(GameRulesFailureComponent, {
@@ -93,18 +95,18 @@ export class GameRootComponent implements OnInit, OnDestroy {
 
   private listenToServer(): void {
     this.gameEventService.subscribeToSSE().subscribe(
-        (event: EventMessageSource) => {
-          const jacket: JacketDTO = JSON.parse(event.eventMsg.data);
-          jacket.data = this.sseEmissionFactory.get(jacket);
-          switch (jacket.type) {
-            case SseEmissionType.GAME_EVENT:
-              this.gameEvents.push(jacket.data as GameEventDTO);
-              this.lastWorld = (jacket.data as GameEventDTO).world;
-              console.log(this.gameEvents)
-              break;
-            case SseEmissionType.HEARTBEAT:
-          }
+      (event: EventMessageSource) => {
+        const jacket: JacketDTO = JSON.parse(event.eventMsg.data);
+        jacket.data = this.sseEmissionFactory.get(jacket);
+        switch (jacket.type) {
+          case SseEmissionType.GAME_EVENT:
+            this.gameEvents.push(jacket.data as GameEventDTO);
+            this.lastWorld = (jacket.data as GameEventDTO).world;
+            console.log(this.gameEvents)
+            break;
+          case SseEmissionType.HEARTBEAT:
         }
+      }
     );
   }
 
@@ -114,8 +116,7 @@ export class GameRootComponent implements OnInit, OnDestroy {
 
   onRulesOpen(): void {
     const dialogRef = this.dialog.open(GameRulesComponent, {
-      data: {
-      }
+      data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('close dialog');
@@ -124,8 +125,7 @@ export class GameRootComponent implements OnInit, OnDestroy {
 
   onKotlinLibOpen(): void {
     const dialogRef = this.dialog.open(KotlinLibraryDetailsComponent, {
-      data: {
-      }
+      data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('close dialog');

@@ -1,9 +1,10 @@
-import {Coordinates, TileContaint, TileDTO, TileType} from '../../../dtos/sse/game-event-dto';
+import {CoordinatesDTO, TileContaint, TileDTO, TileType} from '../../../dtos/sse/game-event-dto';
 
 const tileTypeAsciiDictionary = {
   [TileType.GRASS]: 'v',
   [TileType.NULL]: '\\',
   [TileType.PIT]: '_',
+  [TileType.TREE]: 'T',
 };
 
 const tileContaintAsciiDictionary = {
@@ -11,7 +12,7 @@ const tileContaintAsciiDictionary = {
 };
 
 export class Tile {
-  coordinates: Coordinates;
+  coordinates: CoordinatesDTO;
   containt: TileContaint[];
   type: TileType;
   asciiRepresentation: string;
@@ -20,7 +21,7 @@ export class Tile {
     return new Tile(tileDTO.type, tileDTO.coordinates, tileDTO.containt);
   }
 
-  constructor(tileType: TileType, coordinates: Coordinates, containt: TileContaint[]) {
+  constructor(tileType: TileType, coordinates: CoordinatesDTO, containt: TileContaint[]) {
     this.type = tileType;
     this.containt = containt;
     this.coordinates = coordinates;

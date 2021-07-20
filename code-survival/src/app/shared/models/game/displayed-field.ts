@@ -1,4 +1,4 @@
-import {Coordinates, GridDTO, MobStateDTO} from '../../dtos/sse/game-event-dto';
+import {CoordinatesDTO, GridDTO, MobStateDTO} from '../../dtos/sse/game-event-dto';
 import {NullTile} from './tiles/null-tile';
 import {Tile} from './tiles/tile';
 
@@ -9,14 +9,7 @@ export class DisplayedField {
 
   rows: [TileRow, TileRow, TileRow, TileRow, TileRow];
   private ROW_SIZE = 5;
-  //
-  // static isInBound(coordinates: Coordinates, grid: GridDTO): boolean {
-  //   return !(coordinates.x < 0
-  //     || coordinates.y < 0
-  //     || coordinates.y > grid.gridSize
-  //     || coordinates.x > grid.gridSize);
-  // }
-
+  
   constructor(grid: GridDTO, mobState: MobStateDTO) {
     this.rows = [
       this.getRow(mobState.position.y + 2, grid),
@@ -37,7 +30,7 @@ export class DisplayedField {
     return returnedTiles;
   }
 
-  private getTile(grid: GridDTO, coordinates: Coordinates): Tile {
+  private getTile(grid: GridDTO, coordinates: CoordinatesDTO): Tile {
     const tileToAdd = grid.tiles.filter(tile =>
       (tile.coordinates.x === coordinates.x) &&
       (tile.coordinates.y === coordinates.y)

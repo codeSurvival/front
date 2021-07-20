@@ -1,6 +1,8 @@
 export enum ActionType {
   WALK = 'WALK',
   TRIPPED = 'TRIPPED',
+  JUMP = 'JUMP',
+  SCOUT = 'SCOUT',
 }
 
 export enum Direction {
@@ -32,7 +34,7 @@ export interface GridDTO {
 }
 
 export interface TileDTO {
-  coordinates: Coordinates;
+  coordinates: CoordinatesDTO;
   containt: TileContaint[];
   type: TileType;
 }
@@ -45,11 +47,7 @@ export enum TileType {
   GRASS = 'GRASS',
   PIT = 'PIT',
   NULL = 'NULL',
-}
-
-export interface Coordinates {
-  x: number;
-  y: number;
+  TREE = 'TREE',
 }
 
 
