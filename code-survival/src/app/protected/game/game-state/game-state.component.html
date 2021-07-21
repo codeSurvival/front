@@ -5,46 +5,48 @@
     <mat-card>
       <mat-card-title>Etat</mat-card-title>
       <mat-card-content>
-        <div>
-          <label id="turn-label">Tour :&nbsp;</label>
-          <label>{{turn}} </label>
-        </div>
+        <div class="top-state">
+          <div>
+            <label id="turn-label">Tour :&nbsp;</label>
+            <label>{{turn}} </label>
+          </div>
 
-        <div>
-          <label id="position-label">Position :&nbsp;</label>
-          <label>( {{mobPosition.x}} , {{mobPosition.y}} )</label>
+          <div>
+            <label id="position-label">Position :&nbsp;</label>
+            <label>( {{mobPosition.x}} , {{mobPosition.y}} )</label>
+          </div>
         </div>
 
         <div>
           <label id="health-name-label">Santé :&nbsp;</label>
           <label> {{health}}</label>
+          <mat-slider
+            disabled="disabled"
+            [max]="maxHealth"
+            [min]="min"
+            step="1"
+            thumbLabel="true"
+            tickInterval="1"
+            [(ngModel)]="health"
+            aria-labelledby="health-name-label">
+          </mat-slider>
         </div>
-        <mat-slider
-          disabled="disabled"
-          [max]="maxHealth"
-          [min]="min"
-          step="1"
-          thumbLabel="true"
-          tickInterval="1"
-          [(ngModel)]="health"
-          aria-labelledby="health-name-label">
-        </mat-slider>
 
         <div>
           <label id="food-name-label">Faim :&nbsp;</label>
           <label> {{food}}</label>
+          <mat-slider
+            [ngClass]="foodCriticity"
+            disabled="disabled"
+            [max]="maxFood"
+            [min]="min"
+            step="1"
+            thumbLabel="true"
+            tickInterval="1"
+            [(ngModel)]="food"
+            aria-labelledby="food-name-label">
+          </mat-slider>
         </div>
-        <mat-slider
-          [ngClass]="foodCriticity"
-          disabled="disabled"
-          [max]="maxFood"
-          [min]="min"
-          step="1"
-          thumbLabel="true"
-          tickInterval="1"
-          [(ngModel)]="food"
-          aria-labelledby="food-name-label">
-        </mat-slider>
       </mat-card-content>
     </mat-card>
   </div>
@@ -68,7 +70,7 @@
 <div *ngIf="localeGameEvents && localeGameEvents.length" class="events">
   <mat-card>
     <mat-card-title>Actions</mat-card-title>
-    <mat-card-content>
+    <mat-card-content class="action-list">
       <div *ngFor="let gameEvent of localeGameEvents">
         <div *ngIf="gameEvent.action">
           Tour {{gameEvent.world.round}} : {{gameEvent.action.type}}
