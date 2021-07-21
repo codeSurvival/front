@@ -1,9 +1,24 @@
-.editor-container {
-  height: calc(100% - 60px);
-  margin: 15px;
-}
+//.editor-container {
+//  height: calc(100% - 60px);
+//  margin: 15px;
+//}
 
 .decide-declaration {
   font-size: 15px;
   margin-left: 5%;
 }
+//
+//.code-append {
+//  flex: 10%
+//}
+//
+.code-container {
+  //flex : 80%
+  height: 500px;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+}
+

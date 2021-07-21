@@ -34,9 +34,12 @@ export class GameRootComponent implements OnInit, OnDestroy {
   private userSub!: Subscription;
   codeResponse = {rulesSuccess: false, failedConstraints: [], similaritySuccess: false} as CodeExecutionResponse;
 
+
+  lastGameEvent: GameEventDTO | null = null;
   gameEvents: GameEventDTO[] = [];
   lastWorld: WorldDTO | null = null;
   reset = false;
+  executionLoading = false;
 
   constructor(
     private router: Router,
@@ -70,6 +73,8 @@ export class GameRootComponent implements OnInit, OnDestroy {
 
     this.reset = true;
 
+    this.executionLoading = true;
+
     const chosenLanguageId = this.languages[0].id;
 
     const executionCommandDTO = new CodeExecutionCommandDTO(this.code, chosenLanguageId);
@@ -100,9 +105,9 @@ export class GameRootComponent implements OnInit, OnDestroy {
         jacket.data = this.sseEmissionFactory.get(jacket);
         switch (jacket.type) {
           case SseEmissionType.GAME_EVENT:
-            this.gameEvents.push(jacket.data as GameEventDTO);
+            this.lastGameEvent =  (jacket.data as GameEventDTO);
             this.lastWorld = (jacket.data as GameEventDTO).world;
-            console.log(this.gameEvents)
+            this.executionLoading = false;
             break;
           case SseEmissionType.HEARTBEAT:
         }

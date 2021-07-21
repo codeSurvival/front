@@ -3,14 +3,24 @@
 }
 
 .editor {
-  flex: 70%;
+  flex: 75%;
 }
 
+mat-card {
+  background-color: lightgray;
+  margin-bottom: 20px;
+}
 .map {
-  flex: 30%;
+  flex: 25%;
 }
 
 .section-header {
   display: flex;
   justify-content: center;
 }
+
+.waiter {
+  display: flex;
+  flex-direction: column;
+}
+

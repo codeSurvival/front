@@ -1,21 +1,35 @@
 <div class="section-header">
 
-  <button mat-button (click)="onActiveConstraintsOpen()"><i class="fab fa-korvue"></i> Lib Kotlin</button>
+  <button *ngIf="user" mat-button (click)="onActiveConstraintsOpen()"><i class="fas fa-star"></i> Niveau {{user.level }}</button>
   <h1> Jeu de survie </h1>
   <button mat-button (click)="onRulesOpen()"><i class="fas fa-book-open"></i> Règles </button>
   <button mat-button (click)="onKotlinLibOpen()"><i class="fab fa-korvue"></i> Lib Kotlin</button>
 </div>
 
-<div class="container" *ngIf="(user$ | async)">
-  <div class="row">
-    <div class="editor">
-      <app-game-editor [(code)]="code"></app-game-editor>
-
-      <app-game-actions (executeCodeClicked)="executeCode($event)"></app-game-actions>
+<div class="container h-500" *ngIf="(user$ | async)">
+  <div class="row h-500">
+    <div class="editor h-500">
+      <mat-card class="editor-card h-500">
+          <app-game-editor [(code)]="code"></app-game-editor>
+          <app-game-actions (executeCodeClicked)="executeCode($event)"></app-game-actions>
+      </mat-card>
     </div>
     <div class="map">
-
-      <app-game-state [reset]="reset" [gameEvents]="gameEvents" [world]="lastWorld" #game></app-game-state>
+      <app-game-state *ngIf="lastWorld" [reset]="reset" [lastGameEvent]="lastGameEvent" [world]="lastWorld" #game></app-game-state>
+      <mat-card *ngIf="!lastWorld">
+        <mat-card-content>
+          <div>Executez votre code pour voir l'état de la créature.<br><br>
+          Consultez les contraintes, règles et librairies disponibles au dessus de l'éditeur</div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card *ngIf="executionLoading">
+        <mat-card-content class="waiter">
+          <div>
+            Execution en cours, cela peut prendre quelques secondes
+          </div>
+          <mat-spinner diameter="50" mode="indeterminate" style="align-self: center"></mat-spinner>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 

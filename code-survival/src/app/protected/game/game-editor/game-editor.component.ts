@@ -14,15 +14,17 @@ export class GameEditorComponent implements OnInit {
 
   editorOptions: IStandaloneEditorConstructionOptions = {
     theme: 'vs',
-    language: 'csharp',
+    language: 'kotlin',
     wrappingIndent: 'indent',
+    automaticLayout: true,
     minimap: {
       enabled: false,
-    },
-    dimension : {
-      height: 500,
-      width: 100
     }
+    // ,
+    // dimension : {
+    //   height: 800,
+    //   width: 100
+    // }
   };
 
 

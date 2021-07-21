@@ -1,19 +1,79 @@
+
+
 <div *ngIf="displayedField">
-  <table>
-    <tbody>
-    <tr *ngFor="let row of displayedField.rows">
-      <td *ngFor="let tile of row">
-        {{tile.asciiRepresentation}}
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="mob-state-container">
+    <mat-card>
+      <mat-card-title>Etat</mat-card-title>
+      <mat-card-content>
+        <div>
+          <label id="turn-label">Tour :&nbsp;</label>
+          <label>{{turn}} </label>
+        </div>
+
+        <div>
+          <label id="position-label">Position :&nbsp;</label>
+          <label>( {{mobPosition.x}} , {{mobPosition.y}} )</label>
+        </div>
+
+        <div>
+          <label id="health-name-label">Santé :&nbsp;</label>
+          <label> {{health}}</label>
+        </div>
+        <mat-slider
+          disabled="disabled"
+          [max]="maxHealth"
+          [min]="min"
+          step="1"
+          thumbLabel="true"
+          tickInterval="1"
+          [(ngModel)]="health"
+          aria-labelledby="health-name-label">
+        </mat-slider>
+
+        <div>
+          <label id="food-name-label">Faim :&nbsp;</label>
+          <label> {{food}}</label>
+        </div>
+        <mat-slider
+          [ngClass]="foodCriticity"
+          disabled="disabled"
+          [max]="maxFood"
+          [min]="min"
+          step="1"
+          thumbLabel="true"
+          tickInterval="1"
+          [(ngModel)]="food"
+          aria-labelledby="food-name-label">
+        </mat-slider>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <mat-card>
+    <mat-card-title>Carte</mat-card-title>
+    <mat-card-content>
+      <table>
+        <tbody>
+        <tr *ngFor="let row of displayedField.rows">
+          <td *ngFor="let tile of row">
+            <img src="{{tile.spritePath}}" height="40px" width="40px">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
 </div>
 
-<div *ngIf="gameEvents" class="events">
-  <div *ngFor="let gameEvent of gameEvents">
-    <div *ngIf="gameEvent.action">
-      Action : {{gameEvent.action.type}}
-    </div>
-  </div>
+<div *ngIf="localeGameEvents && localeGameEvents.length" class="events">
+  <mat-card>
+    <mat-card-title>Actions</mat-card-title>
+    <mat-card-content>
+      <div *ngFor="let gameEvent of localeGameEvents">
+        <div *ngIf="gameEvent.action">
+          Tour {{gameEvent.world.round}} : {{gameEvent.action.type}}
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

@@ -56,8 +56,15 @@ export interface MobDTO {
 }
 
 export interface MobStateDTO {
-  health: number;
+  needs: {BLOOD: number, HUNGER: number};
   position: CoordinatesDTO;
+  memoryTile: TileDTO[];
+  memory: Map<string, string>;
+}
+
+export enum MobNeeds {
+  BLOOD = 'BLOOD',
+  HUNGER = 'HUNGER',
 }
 
 export interface CoordinatesDTO {

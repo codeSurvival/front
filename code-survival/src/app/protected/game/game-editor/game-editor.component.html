@@ -1,5 +1,9 @@
-<div class="row" style="height: 500px">
-  <span class="decide-declaration">fun decide(state: MobState): MobAction {{"{"}}</span>
-  <ngx-monaco-editor class="h-500 w-100" [options]="editorOptions" [(ngModel)]="code" (ngModelChange)="codeChange.emit(code)"></ngx-monaco-editor>
-  }
-</div>
+
+<mat-card-content class="500">
+  <div class="code-append decide-declaration h-50">fun decide(state: MobState): MobAction {{"{"}}</div>
+  <div class="code-container row h-400">
+    <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code" (ngModelChange)="codeChange.emit(code)"></ngx-monaco-editor>
+  </div>
+  <div class="code-append decide-declaration h-50">}</div>
+</mat-card-content>
+
