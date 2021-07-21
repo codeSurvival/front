@@ -18,6 +18,7 @@ import {GameEventDTO, WorldDTO} from '../../../shared/dtos/sse/game-event-dto';
 import {GameRulesComponent} from '../game-rules/game-rules.component';
 import {KotlinLibraryDetailsComponent} from '../kotlin-library-details/kotlin-library-details.component';
 import {ActiveConstraintsComponent} from '../active-constraints/active-constraints.component';
+import {CompilationStepDto} from '../../../shared/dtos/sse/compilation-step-dto';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class GameRootComponent implements OnInit, OnDestroy {
   lastWorld: WorldDTO | null = null;
   reset = false;
   executionLoading = false;
+  step: string = 'Rien en cours';
 
   constructor(
     private router: Router,
@@ -101,9 +103,16 @@ export class GameRootComponent implements OnInit, OnDestroy {
   private listenToServer(): void {
     this.gameEventService.subscribeToSSE().subscribe(
       (event: EventMessageSource) => {
+
+        console.log(event.eventMsg.data)
         const jacket: JacketDTO = JSON.parse(event.eventMsg.data);
+        console.log(jacket)
         jacket.data = this.sseEmissionFactory.get(jacket);
+
         switch (jacket.type) {
+          case SseEmissionType.COMPILATION_STEP:
+            this.changeStep(jacket.data as CompilationStepDto);
+            break;
           case SseEmissionType.GAME_EVENT:
             this.lastGameEvent =  (jacket.data as GameEventDTO);
             this.lastWorld = (jacket.data as GameEventDTO).world;
@@ -113,6 +122,31 @@ export class GameRootComponent implements OnInit, OnDestroy {
         }
       }
     );
+  }
+
+  private changeStep(stepDto: CompilationStepDto): void {
+    console.log("change step");
+    console.log(stepDto.compilationType);
+    switch (stepDto.compilationType) {
+      case 'PARSING':
+        this.step = 'Parsing du code';
+        break;
+      case 'COMPILATION':
+        this.step = 'Compilation du code';
+        break;
+      case 'RUNNING':
+        this.step = 'Le jeu est en cours d\'exécution';
+        break;
+      case 'DONE':
+        this.step = 'La partie est finie';
+        break;
+      case 'NONE':
+        this.step = 'Pas de partie en cours';
+        break;
+      default:
+        this.step = 'Etape inexistante';
+
+    }
   }
 
   ngOnDestroy(): void {
