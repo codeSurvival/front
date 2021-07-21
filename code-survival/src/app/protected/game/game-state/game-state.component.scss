@@ -16,3 +16,14 @@ mat-card{
   background-color: lightgray;
   margin-bottom: 10px;
 }
+
+.top-state {
+  display: flex;
+  justify-content: space-between;
+}
+
+.action-list {
+  max-height: 150px;
+  overflow: scroll;
+  scroll-behavior: auto;
+}

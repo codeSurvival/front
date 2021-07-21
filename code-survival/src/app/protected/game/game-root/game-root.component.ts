@@ -104,9 +104,7 @@ export class GameRootComponent implements OnInit, OnDestroy {
     this.gameEventService.subscribeToSSE().subscribe(
       (event: EventMessageSource) => {
 
-        console.log(event.eventMsg.data)
         const jacket: JacketDTO = JSON.parse(event.eventMsg.data);
-        console.log(jacket)
         jacket.data = this.sseEmissionFactory.get(jacket);
 
         switch (jacket.type) {
