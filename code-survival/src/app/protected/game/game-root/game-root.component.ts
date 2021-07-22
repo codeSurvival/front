@@ -123,8 +123,6 @@ export class GameRootComponent implements OnInit, OnDestroy {
   }
 
   private changeStep(stepDto: CompilationStepDto): void {
-    console.log("change step");
-    console.log(stepDto.compilationType);
     switch (stepDto.compilationType) {
       case 'PARSING':
         this.step = 'Parsing du code';

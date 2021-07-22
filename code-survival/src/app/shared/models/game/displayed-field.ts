@@ -13,20 +13,20 @@ export class DisplayedField {
 
   constructor(grid: GridDTO, mobState: MobStateDTO) {
     this.rows = [
-      this.getRow(mobState.position.y + 2, grid),
-      this.getRow(mobState.position.y + 1, grid),
-      this.getRow(mobState.position.y, grid, true),
-      this.getRow(mobState.position.y - 1, grid),
-      this.getRow(mobState.position.y - 2, grid),
+      this.getRow(mobState.position.y + 2, mobState.position.x, grid),
+      this.getRow(mobState.position.y + 1, mobState.position.x, grid),
+      this.getRow(mobState.position.y, mobState.position.x, grid, true),
+      this.getRow(mobState.position.y - 1, mobState.position.x, grid),
+      this.getRow(mobState.position.y - 2, mobState.position.x, grid),
     ];
   }
 
-  private getRow(y: number, grid: GridDTO, isMobRow: boolean = false): TileRow {
+  private getRow(y: number, mobXPosition: number, grid: GridDTO, isMobRow: boolean = false): TileRow {
     const returnedTiles: TileRow = [];
 
     for (const x of Array.from(Array(this.ROW_SIZE).keys())) {
       const isMobTile = isMobRow && x === this.ROW_CENTER;
-      returnedTiles.push(this.getTile(grid, {x, y}, isMobTile));
+      returnedTiles.push(this.getTile(grid, {x: (mobXPosition - 2) + x, y}, isMobTile));
     }
 
     return returnedTiles;
