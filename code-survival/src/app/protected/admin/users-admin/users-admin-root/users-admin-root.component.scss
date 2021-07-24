@@ -12,3 +12,19 @@ mat-card-content {
 mat-card-content > b {
   font-size: 18px;
 }
+.editable_fields{
+  display: inline-block;
+  margin-right: 15px;
+}
+.field_name{
+  display: inline-block;
+  margin-right: 15px;
+}
+mat-card-actions{
+  display: inline-block;
+  margin-left: 15px;
+}
+
+mat-card-title{
+  display: inline-block;
+}

@@ -12,6 +12,9 @@ import {HttpErrorResponse} from '@angular/common/http';
 export class UsersAdminRootComponent implements OnInit {
 
   users: ConnectedUserResponse[] = [];
+  role: any;
+  level: any;
+  archived: any;
 
   constructor(public usersService: UsersService) { }
 

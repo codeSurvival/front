@@ -6,19 +6,35 @@
     <div *ngFor="let user of users ">
       <mat-card>
         <mat-card-title>
-          <mat-card-title>{{ user.username }}</mat-card-title>
-          <mat-card-subtitle>email : {{ user.email }}</mat-card-subtitle>
-          <mat-card-content>id : {{user.id}}</mat-card-content>
+          <mat-card-content>username : {{ user.username }} </mat-card-content>
+          <mat-card-content>email : {{ user.email }}  </mat-card-content>
+          <mat-card-subtitle>id : {{user.id}}</mat-card-subtitle>
+
         </mat-card-title>
+          <br>
+          <div class="editable_fields">
+            <p class="field_name">Role</p>
+            <input matInput type="text" [(ngModel)]="user.role">
+            <button *ngIf="role" (click)="role=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <div class="editable_fields">
+            <p class="field_name">Level</p>
+            <input matInput type="number" [(ngModel)]="user.level">
+            <button *ngIf="level" (click)="level=0">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
         <mat-card-actions>
+
           <button
             mat-raised-button
             (click)="actionOnUser()"
-            style="margin-bottom: 8px"
+            style="margin-right: 8px"
           >
-            Action sur l'user
+            Update
           </button>
-          <br />
           <button mat-stroked-button (click)="removeUser(user.id)">
             Supprimer
           </button>

@@ -3,4 +3,5 @@ export interface ConnectedUserResponse {
   username: string;
   email: string;
   role: string;
+  level: string;
 }
