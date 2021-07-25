@@ -42,7 +42,7 @@ export class GameRootComponent implements OnInit, OnDestroy {
   reset = false;
   executionLoading = false;
   step: string = 'Rien en cours';
-
+  stepType: string = 'NONE';
   constructor(
     private router: Router,
     private languageService: LanguageService,
@@ -58,12 +58,10 @@ export class GameRootComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.languageService.getLanguages().subscribe(async (value) => {
       this.languages = value;
-      console.log(this.languages);
     });
 
     this.userSub = this.userStateService.userSubject$.subscribe(user => {
       this.user = user;
-      console.log(user);
       this.user$.next(this.user);
     });
     this.userStateService.loadUser();
@@ -103,8 +101,8 @@ export class GameRootComponent implements OnInit, OnDestroy {
   private listenToServer(): void {
     this.gameEventService.subscribeToSSE().subscribe(
       (event: EventMessageSource) => {
-
         const jacket: JacketDTO = JSON.parse(event.eventMsg.data);
+
         jacket.data = this.sseEmissionFactory.get(jacket);
 
         switch (jacket.type) {
@@ -123,6 +121,7 @@ export class GameRootComponent implements OnInit, OnDestroy {
   }
 
   private changeStep(stepDto: CompilationStepDto): void {
+    this.stepType = stepDto.compilationType;
     switch (stepDto.compilationType) {
       case 'PARSING':
         this.step = 'Parsing du code';
