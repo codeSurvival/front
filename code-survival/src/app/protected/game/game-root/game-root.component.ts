@@ -19,7 +19,8 @@ import {GameRulesComponent} from '../game-rules/game-rules.component';
 import {KotlinLibraryDetailsComponent} from '../kotlin-library-details/kotlin-library-details.component';
 import {ActiveConstraintsComponent} from '../active-constraints/active-constraints.component';
 import {CompilationStepDto} from '../../../shared/dtos/sse/compilation-step-dto';
-import {GameMessageComponent} from "../game-message/game-message.component";
+import {GameMessageComponent} from '../game-message/game-message.component';
+import {ErrorDTO} from '../../../shared/dtos/sse/error-dto';
 
 
 @Component({
@@ -116,6 +117,9 @@ export class GameRootComponent implements OnInit, OnDestroy {
           case SseEmissionType.MESSAGE:
             this.onMessageBoxOpen(jacket.data as string);
             break;
+          case SseEmissionType.ERROR:
+            this.onErrorMessageBoxOpen(jacket.data as ErrorDTO);
+            break;
           case SseEmissionType.GAME_EVENT:
             this.lastGameEvent =  (jacket.data as GameEventDTO);
             this.lastWorld = (jacket.data as GameEventDTO).world;
@@ -182,10 +186,20 @@ export class GameRootComponent implements OnInit, OnDestroy {
   }
 
   onMessageBoxOpen(message: string): void {
-    console.log('message box openened');
     const dialogRef = this.dialog.open(GameMessageComponent, {
       data: {
         message,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  onErrorMessageBoxOpen(data: ErrorDTO): void {
+    const dialogRef = this.dialog.open(GameErrorComponent, {
+      data: {
+        type: data.type,
+        message: data.message,
       }
     });
     dialogRef.afterClosed().subscribe(result => {
