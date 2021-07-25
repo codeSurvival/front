@@ -43,6 +43,7 @@ export class GameRootComponent implements OnInit, OnDestroy {
   executionLoading = false;
   step: string = 'Rien en cours';
   stepType: string = 'NONE';
+
   constructor(
     private router: Router,
     private languageService: LanguageService,
@@ -58,6 +59,10 @@ export class GameRootComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.languageService.getLanguages().subscribe(async (value) => {
       this.languages = value;
+    });
+
+    this.codeService.getCompilationStep().subscribe(async (value) => {
+      this.changeStep(value);
     });
 
     this.userSub = this.userStateService.userSubject$.subscribe(user => {
@@ -89,7 +94,6 @@ export class GameRootComponent implements OnInit, OnDestroy {
           }
         });
         dialogRef.afterClosed().subscribe(result => {
-          console.log('close dialog');
           this.codeResponse.rulesSuccess = true;
           this.codeResponse.failedConstraints = [];
           this.codeResponse.similaritySuccess = true;
@@ -102,7 +106,6 @@ export class GameRootComponent implements OnInit, OnDestroy {
     this.gameEventService.subscribeToSSE().subscribe(
       (event: EventMessageSource) => {
         const jacket: JacketDTO = JSON.parse(event.eventMsg.data);
-
         jacket.data = this.sseEmissionFactory.get(jacket);
 
         switch (jacket.type) {
@@ -153,7 +156,6 @@ export class GameRootComponent implements OnInit, OnDestroy {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('close dialog');
     });
   }
 
@@ -162,7 +164,6 @@ export class GameRootComponent implements OnInit, OnDestroy {
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('close dialog');
     });
   }
 
@@ -173,7 +174,6 @@ export class GameRootComponent implements OnInit, OnDestroy {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('close dialog');
     });
   }
 }

@@ -9,11 +9,11 @@ export class SseEmissionFactory {
     switch (jacket.type) {
       case SseEmissionType.GAME_EVENT:
         return JSON.parse(jacket.data.toString());
-        
+
       case SseEmissionType.COMPILATION_STEP:
         return JSON.parse(jacket.data.toString());
       default:
-        return '';
+        return jacket.data;
     }
   }
 }
