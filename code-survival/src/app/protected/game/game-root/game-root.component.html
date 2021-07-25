@@ -12,7 +12,7 @@
     <div class="editor h-500">
       <mat-card class="editor-card h-500">
         <app-game-editor [(code)]="code"></app-game-editor>
-        <app-game-actions (executeCodeClicked)="executeCode($event)"></app-game-actions>
+        <app-game-actions [isEnabled]="isExecutionPossible()" (executeCodeClicked)="executeCode($event)"></app-game-actions>
       </mat-card>
     </div>
     <div class="map">

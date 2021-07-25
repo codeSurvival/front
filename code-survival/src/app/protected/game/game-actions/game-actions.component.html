@@ -1,4 +1,4 @@
 
 <mat-card-actions>
-  <button mat-button color="primary" (click)="onExecuteCodeClick()">Exécuter</button>
+  <button mat-button color="primary" [disabled]="!isEnabled" (click)="onExecuteCodeClick()">Exécuter</button>
 </mat-card-actions>

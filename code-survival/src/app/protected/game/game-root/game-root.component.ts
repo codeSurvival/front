@@ -21,6 +21,7 @@ import {ActiveConstraintsComponent} from '../active-constraints/active-constrain
 import {CompilationStepDto} from '../../../shared/dtos/sse/compilation-step-dto';
 import {GameMessageComponent} from '../game-message/game-message.component';
 import {ErrorDTO} from '../../../shared/dtos/sse/error-dto';
+import {GameErrorComponent} from "../game-error/game-error.component";
 
 
 @Component({
@@ -109,7 +110,7 @@ export class GameRootComponent implements OnInit, OnDestroy {
       (event: EventMessageSource) => {
         const jacket: JacketDTO = JSON.parse(event.eventMsg.data);
         jacket.data = this.sseEmissionFactory.get(jacket);
-
+        console.log(jacket);
         switch (jacket.type) {
           case SseEmissionType.COMPILATION_STEP:
             this.changeStep(jacket.data as CompilationStepDto);
@@ -204,5 +205,9 @@ export class GameRootComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
     });
+  }
+
+  isExecutionPossible(): boolean {
+    return this.stepType === 'NONE' || this.stepType === 'DONE';
   }
 }
