@@ -5,6 +5,7 @@ export enum SseEmissionType {
   GAME_EVENT = 'GAME_EVENT',
   HEARTBEAT = 'HEARTBEAT',
   COMPILATION_STEP = 'COMPILATION_STEP',
+  MESSAGE = 'MESSAGE',
 }
 
 export type SseEmission = string | GameEventDTO | CompilationStepDto;

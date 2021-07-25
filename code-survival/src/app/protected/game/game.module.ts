@@ -14,6 +14,7 @@ import {SharedModule} from '../../shared/shared.module';
 import { GameRulesFailureComponent } from './game-rules-failure/game-rules-failure.component';
 import { KotlinLibraryDetailsComponent } from './kotlin-library-details/kotlin-library-details.component';
 import { ActiveConstraintsComponent } from './active-constraints/active-constraints.component';
+import { GameMessageComponent } from './game-message/game-message.component';
 
 
 
@@ -27,7 +28,8 @@ import { ActiveConstraintsComponent } from './active-constraints/active-constrai
     GameActionsComponent,
     GameRulesFailureComponent,
     KotlinLibraryDetailsComponent,
-    ActiveConstraintsComponent
+    ActiveConstraintsComponent,
+    GameMessageComponent
   ],
     imports: [
         CommonModule,

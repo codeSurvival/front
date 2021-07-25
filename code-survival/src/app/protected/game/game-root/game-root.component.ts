@@ -19,6 +19,7 @@ import {GameRulesComponent} from '../game-rules/game-rules.component';
 import {KotlinLibraryDetailsComponent} from '../kotlin-library-details/kotlin-library-details.component';
 import {ActiveConstraintsComponent} from '../active-constraints/active-constraints.component';
 import {CompilationStepDto} from '../../../shared/dtos/sse/compilation-step-dto';
+import {GameMessageComponent} from "../game-message/game-message.component";
 
 
 @Component({
@@ -112,6 +113,9 @@ export class GameRootComponent implements OnInit, OnDestroy {
           case SseEmissionType.COMPILATION_STEP:
             this.changeStep(jacket.data as CompilationStepDto);
             break;
+          case SseEmissionType.MESSAGE:
+            this.onMessageBoxOpen(jacket.data as string);
+            break;
           case SseEmissionType.GAME_EVENT:
             this.lastGameEvent =  (jacket.data as GameEventDTO);
             this.lastWorld = (jacket.data as GameEventDTO).world;
@@ -171,6 +175,17 @@ export class GameRootComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ActiveConstraintsComponent, {
       data: {
         userLevel: this.user?.level
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
+  onMessageBoxOpen(message: string): void {
+    console.log('message box openened');
+    const dialogRef = this.dialog.open(GameMessageComponent, {
+      data: {
+        message,
       }
     });
     dialogRef.afterClosed().subscribe(result => {

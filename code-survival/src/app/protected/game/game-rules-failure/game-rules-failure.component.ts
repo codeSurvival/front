@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {CodeExecutionResponse} from '../../../shared/models/codes/code-execution-response';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 
