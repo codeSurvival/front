@@ -4,6 +4,8 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {EventMessageSource} from './http/event-message-source';
+import {AuthenticationService} from "./authentication.service";
+import {UserStateService} from "./user-state.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +16,12 @@ export class GameEventService {
 
 
   constructor(private sseService: SseService,
-              private http: HttpClient) { }
+              private http: HttpClient,
+              private userStateService: UserStateService
+  ) { }
 
   subscribeToSSE(): Observable<EventMessageSource> {
-    return this.sseService.getServerSentEvent(`${this.servicesUrl}/gameEvents`);
+    return this.sseService.getServerSentEvent(`${this.servicesUrl}/gameEvents/${this.userStateService.user?.id}`);
   }
 
   clearGameEventSubscription(): void {

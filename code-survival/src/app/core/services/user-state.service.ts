@@ -8,7 +8,7 @@ import {ConnectedUser} from '../../shared/models/users/connected-user';
 })
 export class UserStateService{
 
-  private user: ConnectedUser | null = null;
+  user: ConnectedUser | null = null;
   userSubject$ = new Subject<ConnectedUser | null>();
 
   constructor(private authService: AuthenticationService) {
