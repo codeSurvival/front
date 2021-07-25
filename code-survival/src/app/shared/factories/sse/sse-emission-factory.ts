@@ -7,9 +7,10 @@ import {Injectable} from '@angular/core';
 export class SseEmissionFactory {
   public get(jacket: JacketDTO): SseEmission {
     switch (jacket.type) {
+      case SseEmissionType.ERROR:
+        return JSON.parse(jacket.data.toString());
       case SseEmissionType.GAME_EVENT:
         return JSON.parse(jacket.data.toString());
-
       case SseEmissionType.COMPILATION_STEP:
         return JSON.parse(jacket.data.toString());
       default:
