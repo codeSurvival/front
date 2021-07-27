@@ -4,4 +4,5 @@ export interface CodeExecutionResponse {
   rulesSuccess: boolean;
   failedConstraints: FailedConstraintResponse[];
   similaritySuccess: boolean;
+  previousCode?: string;
 }

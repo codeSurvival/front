@@ -4,8 +4,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {EventMessageSource} from './http/event-message-source';
-import {AuthenticationService} from "./authentication.service";
-import {UserStateService} from "./user-state.service";
+import {UserStateService} from './user-state.service';
 
 @Injectable({
   providedIn: 'root'

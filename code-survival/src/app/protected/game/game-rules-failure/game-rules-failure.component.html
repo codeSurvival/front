@@ -11,6 +11,16 @@
   <div *ngIf="!data.codeResponse.similaritySuccess">
     <span>Votre code est trop similaire au précédent ! </span>
     <span>Essayez de changer d'algorithme </span>
+    <mat-card>
+      <mat-card-title>Code précédent</mat-card-title>
+      <div>
+        {{'fun decide(state: MobState): MobAction {'}}
+      </div>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;{{data.codeResponse.previousCode}}</span>
+      <div>
+        {{'\}'}}
+      </div>
+    </mat-card>
   </div>
 </div>
 <mat-dialog-actions align="end">
