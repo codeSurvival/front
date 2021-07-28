@@ -10,7 +10,6 @@
         <li><span class="code-text">WALK</span> *</li>
         <li><span class="code-text">JUMP</span> *</li>
         <li><span class="code-text">SCOUT</span> *</li>
-        <li><span class="code-text">REST</span></li>
         <li><span class="code-text">TRIPPED</span></li>
       </ul>
       * : nécessite une direction<br>
@@ -22,10 +21,48 @@
     <mat-card-content>
       Pour accéder à de nombreuses informations sur l'état de la créature et de son environnement
     </mat-card-content>
+    <mat-card-content>
+    Parmi ces informations se trouvent :
+      <ul>
+        <li>
+          tileMemory: Une hashmap "Coordinates -> Tile" qui permet d'accéder aux cases observées pour en connaître le contenu.
+        </li>
+        <li>
+          memory: Une hashmap "String -> String" qui permet de stocker n'importe quelle information sous la forme d'une chaine de caractère. Pour y ajouter une entrée, vous pouvez faire state.retain("memoire", "souvenir").
+        </li>
+        <li>
+          position: Une instance de Coordinates qui contient elle-même x et y, les coordonnées de la créature.
+        </li>
+        <li>
+          needs: une hashmap "MobNeeds -> Integer" qui indique les besoins de la créature. Parmi ces besoins, il y a :
+          <ul>
+            <li>
+              BLOOD - qui correspond au points de vie
+            </li>
+            <li>
+              HUNGER - qui correspond à la faim de la créature
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </mat-card-content>
     <mat-card-subtitle>3 - Tiles</mat-card-subtitle>
-    <mat-card-content></mat-card-content>
-    <mat-card-subtitle>4 - Memory</mat-card-subtitle>
-    <mat-card-content></mat-card-content>
+    <mat-card-content>
+      Les tiles ne sont pas directement modifiables par le joueur, et ce dernier n'en possède que le souvenir dans la state.tileMemory. Néanmoins, il peut avoir accès à la structure de la taille pour la comprendre. Il y a :
+      <ul>
+        <li>
+          type: Une énumération qui contient :
+          <ul>
+            <li><span class="code-text">TREE</span> - Une case autour de laquelle peut apparaitre de la nourriture</li>
+            <li><span class="code-text">PIT</span> - Une case dans laquelle la chute est mortelle </li>
+            <li><span class="code-text">GRASS</span> - Une case simple</li>
+          </ul>
+        </li>
+        <li>
+          Coordinates : Une structure qui possède la propriété x et y et qui indique la position de la case.
+        </li>
+      </ul>
+    </mat-card-content>
   </mat-card>
 </div>
 <mat-dialog-actions align="end">
