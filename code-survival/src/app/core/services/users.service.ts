@@ -20,7 +20,7 @@ export class UsersService {
   }
 
   removeUser(id: string): Observable<any>{
-    return this.http.delete(`${this.servicesUrl}/remove/${id}`).pipe(
+    return this.http.delete(`${this.servicesUrl}/users/${id}`).pipe(
       catchError(err => of([]))
     );
   }
